@@ -31,6 +31,7 @@
 #define MCP_TYPE_S17	1
 #define MCP_TYPE_008	2
 #define MCP_TYPE_017	3
+#define MCP_TYPE_S18    4
 
 /* Registers are all 8 bits wide.
  *
@@ -615,6 +616,12 @@ static int mcp23s08_probe_one(struct mcp23s08 *mcp, struct device *dev,
 		mcp->chip.ngpio = 16;
 		mcp->chip.label = "mcp23s17";
 		break;
+
+	case MCP_TYPE_S18:
+		mcp->ops = &mcp23s17_ops;
+		mcp->chip.ngpio = 16;
+		mcp->chip.label = "mcp23s18";
+		break;
 #endif /* CONFIG_SPI_MASTER */
 
 #if IS_ENABLED(CONFIG_I2C)
@@ -655,8 +662,7 @@ static int mcp23s08_probe_one(struct mcp23s08 *mcp, struct device *dev,
 			of_property_read_bool(mcp->chip.dev->of_node,
 					      "microchip,irq-active-high");
 
-		if (type == MCP_TYPE_017)
-			mirror = pdata->mirror;
+		mirror = pdata->mirror;
 	}
 
 	if ((status & IOCON_SEQOP) || !(status & IOCON_HAEN) || mirror ||
@@ -732,6 +738,10 @@ static const struct of_device_id mcp23s08_spi_of_match[] = {
 	{
 		.compatible = "microchip,mcp23s17",
 		.data = (void *) MCP_TYPE_S17,
+	},
+	{
+		.compatible = "microchip,mcp23s18",
+		.data = (void *) MCP_TYPE_S18,
 	},
 /* NOTE: The use of the mcp prefix is deprecated and will be removed. */
 	{
@@ -969,8 +979,8 @@ static int mcp23s08_probe(struct spi_device *spi)
 			goto fail;
 
 		if (pdata->base != -1)
-			pdata->base += (type == MCP_TYPE_S17) ? 16 : 8;
-		ngpio += (type == MCP_TYPE_S17) ? 16 : 8;
+			pdata->base += data->mcp[addr]->chip.ngpio;
+		ngpio += data->mcp[addr]->chip.ngpio;
 	}
 	data->ngpio = ngpio;
 
@@ -1012,6 +1022,7 @@ static int mcp23s08_remove(struct spi_device *spi)
 static const struct spi_device_id mcp23s08_ids[] = {
 	{ "mcp23s08", MCP_TYPE_S08 },
 	{ "mcp23s17", MCP_TYPE_S17 },
+	{ "mcp23s18", MCP_TYPE_S18 },
 	{ },
 };
 MODULE_DEVICE_TABLE(spi, mcp23s08_ids);
