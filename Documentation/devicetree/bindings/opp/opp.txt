@@ -562,3 +562,39 @@ Example 6: opp-supported-hw
 		};
 	};
 };
+
+Example 7: opp-microvolt-<name>, opp-microamp-<name>:
+(example: device with two possible microvolt ranges: slow and fast)
+
+/ {
+	cpus {
+		cpu@0 {
+			compatible = "arm,cortex-a7";
+			...
+
+			operating-points-v2 = <&cpu0_opp_table>;
+		};
+	};
+
+	cpu0_opp_table: opp_table0 {
+		compatible = "operating-points-v2";
+		opp-shared;
+
+		opp00 {
+			opp-hz = /bits/ 64 <1000000000>;
+			opp-microvolt-slow = <900000 915000 925000>;
+			opp-microvolt-fast = <970000 975000 985000>;
+			opp-microamp-slow =  <70000>;
+			opp-microamp-fast =  <71000>;
+		};
+
+		opp01 {
+			opp-hz = /bits/ 64 <1200000000>;
+			opp-microvolt-slow = <900000 915000 925000>, /* Supply vcc0 */
+					      <910000 925000 935000>; /* Supply vcc1 */
+			opp-microvolt-fast = <970000 975000 985000>, /* Supply vcc0 */
+					     <960000 965000 975000>; /* Supply vcc1 */
+			opp-microamp =  <70000>; /* Will be used for both slow/fast */
+		};
+	};
+};
