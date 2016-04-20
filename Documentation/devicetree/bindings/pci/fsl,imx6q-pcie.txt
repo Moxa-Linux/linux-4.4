@@ -13,6 +13,18 @@ Required properties:
 - clock-names: Must include the following additional entries:
 	- "pcie_phy"
 
+Optional properties:
+- fsl,max-link-speed: Specify PCI gen for link capability. Must be '2' for
+  gen2, otherwise will default to gen1. Note that the IMX6 LVDS clock outputs
+  do not meet gen2 jitter requirements and thus for gen2 capability a gen2
+  compliant clock generator should be used and configured.
+- reset-gpio: Should specify the GPIO for controlling the PCI bus device reset
+  signal. It's not polarity aware and defaults to active-low reset sequence
+  (L=reset state, H=operation state).
+- reset-gpio-active-high: If present then the reset sequence using the GPIO
+  specified in the "reset-gpio" property is reversed (H=reset state,
+  L=operation state).
+
 Example:
 
 	pcie@0x01000000 {

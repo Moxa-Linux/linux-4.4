@@ -52,6 +52,7 @@ struct imx6_pcie {
 	void __iomem		*mem_base;
 	struct regmap		*reg_src;
 	struct regulator	*pcie_phy_regulator;
+	int			link_gen;
 };
 
 /* PCIe Root Complex registers (memory-mapped) */
@@ -719,6 +720,12 @@ static int __init imx6_pcie_probe(struct platform_device *pdev)
 		dev_err(&pdev->dev, "unable to find iomuxc registers\n");
 		return PTR_ERR(imx6_pcie->iomuxc_gpr);
 	}
+
+	/* Limit link speed */
+	ret = of_property_read_u32(pp->dev->of_node, "fsl,max-link-speed",
+				   &imx6_pcie->link_gen);
+	if (ret)
+		imx6_pcie->link_gen = 1;
 
 	ret = imx6_add_pcie_port(pp, pdev);
 	if (ret < 0)
