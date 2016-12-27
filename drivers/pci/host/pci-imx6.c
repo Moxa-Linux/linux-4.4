@@ -20,6 +20,7 @@
 #include <linux/mfd/syscon/imx7-iomuxc-gpr.h>
 #include <linux/module.h>
 #include <linux/of_gpio.h>
+#include <linux/of_address.h>
 #include <linux/of_device.h>
 #include <linux/pci.h>
 #include <linux/platform_device.h>
@@ -50,7 +51,7 @@ struct imx6_pcie {
 	struct pcie_port	pp;
 	struct regmap		*iomuxc_gpr;
 	enum imx6_pcie_variants variant;
-	void __iomem		*mem_base;
+	void __iomem		*phy_base;
 	struct regmap		*reg_src;
 	struct regulator	*pcie_phy_regulator;
 	int			link_gen;
@@ -94,6 +95,12 @@ struct imx6_pcie {
 #define PHY_RX_OVRD_IN_LO 0x1005
 #define PHY_RX_OVRD_IN_LO_RX_DATA_EN (1 << 5)
 #define PHY_RX_OVRD_IN_LO_RX_PLL_EN (1 << 3)
+
+/* iMX7 PCIe PHY registers */
+#define PCIE_PHY_CMN_REG15	0x54
+#define PCIE_PHY_CMN_REG15_DLY_4	(1 << 2)
+#define PCIE_PHY_CMN_REG15_PLL_PD	(1 << 5)
+#define PCIE_PHY_CMN_REG15_OVRD_PLL_PD	(1 << 7)
 
 static int pcie_phy_poll_ack(void __iomem *dbi_base, int exp_val)
 {
@@ -367,6 +374,21 @@ static int imx6_pcie_deassert_core_reset(struct imx6_pcie *imx6_pcie)
 		udelay(10);
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(6), 0);
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(1), 0);
+
+		/* Add the workaround for ERR010728 */
+		if (unlikely(imx6_pcie->phy_base == NULL)) {
+			pr_err("phy base shouldn't be null.\n");
+		} else {
+			writel(PCIE_PHY_CMN_REG15_DLY_4,
+			       imx6_pcie->phy_base + PCIE_PHY_CMN_REG15);
+			writel(PCIE_PHY_CMN_REG15_DLY_4
+			       | PCIE_PHY_CMN_REG15_PLL_PD
+			       | PCIE_PHY_CMN_REG15_OVRD_PLL_PD,
+			       imx6_pcie->phy_base + PCIE_PHY_CMN_REG15);
+			writel(PCIE_PHY_CMN_REG15_DLY_4,
+			       imx6_pcie->phy_base + PCIE_PHY_CMN_REG15);
+		}
+
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(2), 0);
 
 		/* wait for phy pll lock firstly. */
@@ -682,6 +704,7 @@ static int __init imx6_pcie_probe(struct platform_device *pdev)
 	struct imx6_pcie *imx6_pcie;
 	struct pcie_port *pp;
 	struct device_node *node = dev->of_node;
+	struct device_node *np;
 	struct resource *dbi_base;
 	int ret;
 
@@ -697,6 +720,14 @@ static int __init imx6_pcie_probe(struct platform_device *pdev)
 	/* Added for PCI abort handling */
 	hook_fault_code(16 + 6, imx6q_pcie_abort_handler, SIGBUS, 0,
 		"imprecise external abort");
+
+	np = of_find_compatible_node(NULL, NULL, "fsl,imx-pcie-phy");
+	if (np != NULL) {
+		imx6_pcie->phy_base = of_iomap(np, 0);
+		WARN_ON(!imx6_pcie->phy_base);
+	} else {
+		imx6_pcie->phy_base = NULL;
+	}
 
 	dbi_base = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	pp->dbi_base = devm_ioremap_resource(&pdev->dev, dbi_base);
