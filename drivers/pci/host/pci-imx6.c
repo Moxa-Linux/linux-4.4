@@ -426,7 +426,7 @@ static int imx6_pcie_wait_for_speed_change(struct pcie_port *pp)
 		/* Test if the speed change finished. */
 		if (!(tmp & PORT_LOGIC_SPEED_CHANGE))
 			return 0;
-		usleep_range(100, 1000);
+		udelay(100);
 	}
 
 	dev_err(pp->dev, "Speed change timeout\n");
@@ -467,11 +467,16 @@ static int imx6_pcie_establish_link(struct pcie_port *pp)
 	if (ret)
 		return ret;
 
-	/* Allow Gen2 mode after the link is up. */
-	tmp = readl(pp->dbi_base + PCIE_RC_LCR);
-	tmp &= ~PCIE_RC_LCR_MAX_LINK_SPEEDS_MASK;
-	tmp |= PCIE_RC_LCR_MAX_LINK_SPEEDS_GEN2;
-	writel(tmp, pp->dbi_base + PCIE_RC_LCR);
+	if (imx6_pcie->link_gen == 2) {
+		/* Allow Gen2 mode after the link is up. */
+		tmp = readl(pp->dbi_base + PCIE_RC_LCR);
+		tmp &= ~PCIE_RC_LCR_MAX_LINK_SPEEDS_MASK;
+		tmp |= PCIE_RC_LCR_MAX_LINK_SPEEDS_GEN2;
+		writel(tmp, pp->dbi_base + PCIE_RC_LCR);
+	} else {
+		dev_info(pp->dev, "Link: Gen2 disabled\n");
+		goto out;
+	}
 
 	/*
 	 * Start Directed Speed Change so the best possible speed both link
@@ -483,7 +488,7 @@ static int imx6_pcie_establish_link(struct pcie_port *pp)
 
 	ret = imx6_pcie_wait_for_speed_change(pp);
 	if (ret) {
-		dev_err(pp->dev, "Failed to bring link up!\n");
+		dev_info(pp->dev, "Roll back to GEN1 link!\n");
 		return ret;
 	}
 
@@ -494,8 +499,9 @@ static int imx6_pcie_establish_link(struct pcie_port *pp)
 		return ret;
 	}
 
+out:
 	tmp = readl(pp->dbi_base + PCIE_RC_LCSR);
-	dev_dbg(pp->dev, "Link up, Gen=%i\n", (tmp >> 16) & 0xf);
+	dev_info(pp->dev, "Link up, Gen%i\n", (tmp >> 16) & 0xf);
 	return 0;
 }
 
