@@ -1,0 +1,41 @@
+/*
+ * U-Boot itb image source file for "uc8200 project"
+ */
+
+/dts-v1/;
+
+/ {
+	description = "U-Boot itb image source file for uc8200 project";
+	#address-cells = <1>;
+
+	images {
+		kernel@uc8200 {
+			description = "Moxa UC8200 Series Unify Linux Kernel";
+			data = /incbin/("../arch/arm/boot/zImage");
+			type = "kernel";
+			arch = "arm";
+			os = "linux";
+			compression = "none";
+			load = <0x80800000>;
+			entry = <0x80800000>;
+		};
+		fdt@uc8200 {
+			description = "Flattened Device Tree blob for UC8200";
+			data = /incbin/("../arch/arm/boot/dts/imx7d-moxa-uc-8200.dtb");
+			type = "flat_dt";
+			arch = "arm";
+			compression = "none";
+			load = <0x83000000>;
+		};
+	};
+
+	configurations {
+		default = "uc8200";
+		uc8200 {
+			description = "Boot Linux kernel with uc8200 FDT blob";
+			kernel = "kernel@uc8200";
+			fdt = "fdt@uc8200";
+		};
+	};
+};
+
