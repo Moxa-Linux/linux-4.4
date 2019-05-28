@@ -100,6 +100,7 @@ static void __init imx7d_init_machine(void)
 
 static void __init imx7d_init_irq(void)
 {
+	imx_gpcv2_check_dt();
 	imx_init_revision_from_anatop();
 	imx_src_init();
 	irqchip_init();

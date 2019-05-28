@@ -53,6 +53,10 @@ config HAVE_IMX_GPC
 	bool
 	select PM_GENERIC_DOMAINS if PM
 
+config HAVE_IMX_GPCV2
+	bool
+	select PM_GENERIC_DOMAINS if PM
+
 config HAVE_IMX_MMDC
 	bool
 
@@ -563,6 +567,8 @@ config SOC_IMX7D
 	select HAVE_IMX_ANATOP
 	select HAVE_IMX_MMDC
 	select HAVE_IMX_SRC
+	select HAVE_IMX_GPCV2
+	select CPU_V7
 	help
 		This enables support for Freescale i.MX7 Dual processor.
 
