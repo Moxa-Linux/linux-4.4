@@ -99,6 +99,8 @@ static inline void imx_smp_prepare(void) {}
 void imx_src_init(void);
 void imx_gpc_pre_suspend(bool arm_power_off);
 void imx_gpc_post_resume(void);
+unsigned int imx_gpcv2_is_mf_mix_off(void);
+void __init imx_gpcv2_check_dt(void);
 void imx_gpc_mask_all(void);
 void imx_gpc_restore_all(void);
 void imx_gpc_hwirq_mask(unsigned int hwirq);
