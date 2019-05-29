@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2019 MOXA Inc. - https://www.moxa.com/
+ *
+ * Authors: Fero JD Zhou (周俊達) <FeroJD.Zhou@moxa.com>
+ *	    Harry YJ Jhou (周亞諄) <HarryYJ.Jhou@moxa.com>
+ */
+
+#include "imx7d-moxa-uc-8210.dts"
+
+&pcie_phy{
+	status = "okay";
+};
+
+&pcie {
+	status = "okay";
+};
+
