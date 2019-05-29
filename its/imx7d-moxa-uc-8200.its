@@ -19,9 +19,17 @@
 			load = <0x80800000>;
 			entry = <0x80800000>;
 		};
-		fdt@uc8200 {
+		fdt@uc8210 {
 			description = "Flattened Device Tree blob for UC8200";
-			data = /incbin/("../arch/arm/boot/dts/imx7d-moxa-uc-8200.dtb");
+			data = /incbin/("../arch/arm/boot/dts/imx7d-moxa-uc-8210.dtb");
+			type = "flat_dt";
+			arch = "arm";
+			compression = "none";
+			load = <0x83000000>;
+		};
+		fdt@uc8220 {
+			description = "Flattened Device Tree blob for UC8200";
+			data = /incbin/("../arch/arm/boot/dts/imx7d-moxa-uc-8220.dtb");
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
@@ -30,11 +38,16 @@
 	};
 
 	configurations {
-		default = "uc8200";
-		uc8200 {
+		default = "uc8220";
+		uc8210 {
 			description = "Boot Linux kernel with uc8200 FDT blob";
 			kernel = "kernel@uc8200";
-			fdt = "fdt@uc8200";
+			fdt = "fdt@uc8210";
+		};
+		uc8220 {
+			description = "Boot Linux kernel with uc8200 FDT blob";
+			kernel = "kernel@uc8200";
+			fdt = "fdt@uc8220";
 		};
 	};
 };
