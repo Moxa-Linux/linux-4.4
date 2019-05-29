@@ -221,10 +221,11 @@ static long ds1374_wdt_ioctl(struct file *file, unsigned int cmd,
 		if (get_user(new_margin, (int __user *)arg))
 			return -EFAULT;
 
+		new_margin <<= 12; /*1 sec for 4096 tick, hence shift 12 bits*/
 		if (new_margin < 1 || new_margin > 16777216)
 			return -EINVAL;
 
-		timer_margin = (new_margin * 4096);
+		timer_margin = new_margin;
 		ds1374_wdt_settimeout(timer_margin);
 		ds1374_wdt_ping();
 		/* fallthrough */
