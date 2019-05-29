@@ -311,11 +311,21 @@ static int __init ds1374_wdt_init(void)
 		misc_deregister(&ds1374_miscdev);
 		return ret;
 	}
-	if (timer_margin != DEFAULT_MARGIN)
-                timer_margin *= 4096; 
+
+	/*
+	 * The user specifies the timer_margin in seconds.
+	 * Allow range from 1 to 4095.
+	 * Set to defualt value once at invlid range.
+	 **/
+	if (timer_margin > 0 && timer_margin < 4096)
+                timer_margin <<= 12;
+	else {
+		timer_margin = DEFAULT_MARGIN;
+		pr_info("ds1374_wdt: timer_margin out of range (1~4095).\n");
+	}
         pr_info("ds1374_wdt: Watchdog timer initial timeout %d sec\n",
-                        timer_margin/4096);
- 
+                        timer_margin>>12);
+
 	if (nowayout)
 		 pr_info("ds1374_wdt: Nowayout mode\n");
 	else
