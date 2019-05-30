@@ -911,9 +911,6 @@ static void __init imx7d_clocks_init(struct device_node *ccm_node)
 	/* set parent of EPDC pixel clock */
 	imx_clk_set_parent(clks[IMX7D_EPDC_PIXEL_ROOT_SRC], clks[IMX7D_PLL_SYS_MAIN_CLK]);
 
-	/* set lcdif pixel root clock source to get the required 33Mhz clock */
-	imx_clk_set_parent(clks[IMX7D_LCDIF_PIXEL_ROOT_SRC], clks[IMX7D_PLL_VIDEO_POST_DIV]);
-
 	imx_clk_set_parent(clks[IMX7D_MIPI_CSI_ROOT_SRC], clks[IMX7D_PLL_SYS_PFD3_CLK]);
 
 	/* set parent of SIM1 root clock */
