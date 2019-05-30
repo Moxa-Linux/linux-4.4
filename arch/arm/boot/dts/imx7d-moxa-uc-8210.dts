@@ -413,7 +413,6 @@
 
 &pcie {
 	pinctrl-names = "default";
-	//reset-gpio-active-high;
 };
 
 &uart1 {
