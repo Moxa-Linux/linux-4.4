@@ -601,7 +601,6 @@
 				pcie-phy-supply = <&reg_1p0d>;
 				mipi-phy-supply = <&reg_1p0d>;
 			};
-
 		};
 
 		aips2: aips-bus@30400000 {

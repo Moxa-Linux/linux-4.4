@@ -15,4 +15,3 @@
 &pcie {
 	status = "okay";
 };
-
