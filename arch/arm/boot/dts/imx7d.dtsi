@@ -671,7 +671,6 @@
 				reg = <0x306d0000 0x10000>;
 				status = "disabled";
 			};
-
 		};
 
 		aips3: aips-bus@30800000 {
