@@ -10,6 +10,9 @@
  * 2 of the License, or (at your option) any later version.
  */
 
+#ifndef _CHARLCD_H
+#define _CHARLCD_H
+
 struct charlcd {
 	const struct charlcd_ops *ops;
 	const unsigned char *char_conv;	/* Optional */
@@ -41,3 +44,5 @@ int charlcd_register(struct charlcd *lcd);
 int charlcd_unregister(struct charlcd *lcd);
 
 void charlcd_poke(struct charlcd *lcd);
+
+#endif /* CHARLCD_H */
