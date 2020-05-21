@@ -40,9 +40,10 @@ enum imx6_pcie_variants {
 };
 
 struct imx6_pcie {
-	int			dis_pio;
+	int			dis_gpio;
 	int			power_on_gpio;
 	int			reset_gpio;
+	bool			gpio_active_high;
 	struct clk		*pcie_bus;
 	struct clk		*pcie_phy;
 	struct clk		*pcie;
@@ -223,9 +224,9 @@ static int imx6q_pcie_abort_handler(unsigned long addr,
 	return 0;
 }
 
-static int imx6_pcie_assert_core_reset(struct pcie_port *pp)
+static void imx6_pcie_assert_core_reset(struct imx6_pcie *imx6_pcie)
 {
-	struct imx6_pcie *imx6_pcie = to_imx6_pcie(pp);
+	struct pcie_port *pp = &imx6_pcie->pp;
 	u32 val, gpr1, gpr12;
 
 	switch (imx6_pcie->variant) {
@@ -267,98 +268,133 @@ static int imx6_pcie_assert_core_reset(struct pcie_port *pp)
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(2), BIT(2));
 		break;
 	}
-	return 0;
 }
 
-static void pci_imx_phy_pll_locked(struct imx6_pcie *imx6_pcie)
+static int pci_imx_phy_pll_locked(struct imx6_pcie *imx6_pcie)
 {
 	u32 val;
-	int count = 20000;
+	int i = 0;
+	struct pcie_port *pp = &imx6_pcie->pp;
+	struct device *dev = pp->dev;
 
-	while (count--) {
-		regmap_read(imx6_pcie->iomuxc_gpr, IOMUXC_GPR22, &val);
-		if (val & BIT(31))
-			break;
-		udelay(10);
-		if (count == 0){
-			pr_info("pcie phy pll can't be locked.\n");
-		} else {
-			continue;
+	if (imx6_pcie->variant == IMX7D) {
+		for (i = 0; i < 100; i++) {
+			regmap_read(imx6_pcie->iomuxc_gpr, IOMUXC_GPR22, &val);
+			if (val & BIT(31))
+				break;
+			udelay(10);
 		}
+	}
+
+	if (i >= 100) {
+		dev_info(dev, "pcie phy pll can't be locked.\n");
+		return -ENODEV;
+	} else {
+		dev_info(dev, "pcie phy pll is locked.\n");
+		return 0;
 	}
 }
 
-static int imx6_pcie_deassert_core_reset(struct pcie_port *pp)
+static int imx6_pcie_enable_ref_clk(struct imx6_pcie *imx6_pcie)
 {
-	struct imx6_pcie *imx6_pcie = to_imx6_pcie(pp);
-	int ret;
+	int ret = 0;
 
-	ret = clk_prepare_enable(imx6_pcie->pcie_phy);
-	if (ret) {
-		dev_err(pp->dev, "unable to enable pcie_phy clock\n");
-		goto err_pcie_phy;
+	switch (imx6_pcie->variant) {
+	case IMX6Q:
+		/* power up core phy and enable ref clock */
+		regmap_update_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR1,
+				   IMX6Q_GPR1_PCIE_TEST_PD, 0 << 18);
+		/*
+		 * the async reset input need ref clock to sync internally,
+		 * when the ref clock comes after reset, internal synced
+		 * reset time is too short, cannot meet the requirement.
+		 * add one ~10us delay here.
+		 */
+		udelay(10);
+		regmap_update_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR1,
+				   IMX6Q_GPR1_PCIE_REF_CLK_EN, 1 << 16);
+		break;
+	case IMX7D:
+		break;
 	}
 
-	ret = clk_prepare_enable(imx6_pcie->pcie_bus);
-	if (ret) {
-		dev_err(pp->dev, "unable to enable pcie_bus clock\n");
-		goto err_pcie_bus;
+	return ret;
+}
+
+static int imx6_pcie_deassert_core_reset(struct imx6_pcie *imx6_pcie)
+{
+	struct pcie_port *pp = &imx6_pcie->pp;
+	struct device *dev = pp->dev;
+	int ret;
+
+	if (gpio_is_valid(imx6_pcie->power_on_gpio)) {
+		mdelay(100);
+		gpio_set_value_cansleep(imx6_pcie->power_on_gpio, 1);
 	}
 
 	ret = clk_prepare_enable(imx6_pcie->pcie);
 	if (ret) {
-		dev_err(pp->dev, "unable to enable pcie clock\n");
-		goto err_pcie;
+		dev_err(dev, "unable to enable pcie clock\n");
+		return -ENODEV;
 	}
 
-	/* power up core phy and enable ref clock */
-	regmap_update_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR1,
-			IMX6Q_GPR1_PCIE_TEST_PD, 0 << 18);
-	/*
-	 * the async reset input need ref clock to sync internally,
-	 * when the ref clock comes after reset, internal synced
-	 * reset time is too short, cannot meet the requirement.
-	 * add one ~10us delay here.
-	 */
-	udelay(10);
-	regmap_update_bits(imx6_pcie->iomuxc_gpr, IOMUXC_GPR1,
-			IMX6Q_GPR1_PCIE_REF_CLK_EN, 1 << 16);
+	ret = clk_prepare_enable(imx6_pcie->pcie_bus);
+	if (ret) {
+		dev_err(dev, "unable to enable pcie_bus clock\n");
+		goto err_pcie_bus;
+	}
+
+	ret = clk_prepare_enable(imx6_pcie->pcie_phy);
+	if (ret) {
+		dev_err(dev, "unable to enable pcie_phy clock\n");
+		goto err_pcie_phy;
+	}
+
+	ret = imx6_pcie_enable_ref_clk(imx6_pcie);
+	if (ret) {
+		dev_err(dev, "unable to enable pcie ref clock\n");
+		goto err_ref_clk;
+	}
 
 	/* allow the clocks to stabilize */
 	udelay(200);
 
-	/* Some boards don't have PCIe reset GPIO. */
-	if (gpio_is_valid(imx6_pcie->reset_gpio)) {
-		gpio_set_value(imx6_pcie->reset_gpio, 0);
-		msleep(100);
-		gpio_set_value(imx6_pcie->reset_gpio, 1);
-	}
-
 	switch (imx6_pcie->variant) {
-	case IMX6Q:		/* Nothing to do */
+	case IMX6Q:
 		break;
 	case IMX7D:
 		/* wait for more than 10us to release phy g_rst and btnrst */
-		udelay(20);
+		udelay(10);
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(6), 0);
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(1), 0);
 		regmap_update_bits(imx6_pcie->reg_src, 0x2c, BIT(2), 0);
 
 		/* wait for phy pll lock firstly. */
-		pci_imx_phy_pll_locked(imx6_pcie);
-
+		if (pci_imx_phy_pll_locked(imx6_pcie))
+			ret = -ENODEV;
 		break;
 	}
 
-	return ret;
+	/* Some boards don't have PCIe reset GPIO. */
+	if (gpio_is_valid(imx6_pcie->reset_gpio)) {
+		gpio_set_value_cansleep(imx6_pcie->reset_gpio,
+					imx6_pcie->gpio_active_high);
+		mdelay(20);
+		gpio_set_value_cansleep(imx6_pcie->reset_gpio,
+					!imx6_pcie->gpio_active_high);
+		mdelay(20);
+	}
 
-err_pcie:
-	clk_disable_unprepare(imx6_pcie->pcie_bus);
-err_pcie_bus:
+	if (ret == 0)
+		return ret;
+
+err_ref_clk:
 	clk_disable_unprepare(imx6_pcie->pcie_phy);
 err_pcie_phy:
+	clk_disable_unprepare(imx6_pcie->pcie_bus);
+err_pcie_bus:
+	clk_disable_unprepare(imx6_pcie->pcie);
 	return ret;
-
 }
 
 static void imx6_pcie_init_phy(struct pcie_port *pp)
@@ -508,11 +544,13 @@ out:
 
 static void imx6_pcie_host_init(struct pcie_port *pp)
 {
-	imx6_pcie_assert_core_reset(pp);
+	struct imx6_pcie *imx6_pcie = to_imx6_pcie(pp);
+
+	imx6_pcie_assert_core_reset(imx6_pcie);
 
 	imx6_pcie_init_phy(pp);
 
-	imx6_pcie_deassert_core_reset(pp);
+	imx6_pcie_deassert_core_reset(imx6_pcie);
 
 	dw_pcie_setup_rc(pp);
 
@@ -643,7 +681,7 @@ static int __init imx6_pcie_probe(struct platform_device *pdev)
 	struct device *dev = &pdev->dev;
 	struct imx6_pcie *imx6_pcie;
 	struct pcie_port *pp;
-	struct device_node *np = pdev->dev.of_node;
+	struct device_node *node = dev->of_node;
 	struct resource *dbi_base;
 	int ret;
 
@@ -666,14 +704,47 @@ static int __init imx6_pcie_probe(struct platform_device *pdev)
 		return PTR_ERR(pp->dbi_base);
 
 	/* Fetch GPIOs */
-	imx6_pcie->reset_gpio = of_get_named_gpio(np, "reset-gpio", 0);
-	if (gpio_is_valid(imx6_pcie->reset_gpio)) {
-		ret = devm_gpio_request_one(&pdev->dev, imx6_pcie->reset_gpio,
-					    GPIOF_OUT_INIT_LOW, "PCIe reset");
+	imx6_pcie->dis_gpio = of_get_named_gpio(node, "disable-gpio", 0);
+	if (gpio_is_valid(imx6_pcie->dis_gpio)) {
+		ret = devm_gpio_request_one(&pdev->dev, imx6_pcie->dis_gpio,
+					    GPIOF_OUT_INIT_HIGH, "PCIe DIS");
 		if (ret) {
-			dev_err(&pdev->dev, "unable to get reset gpio\n");
+			dev_err(&pdev->dev, "unable to get disable gpio\n");
 			return ret;
 		}
+	} else if (imx6_pcie->dis_gpio == -EPROBE_DEFER) {
+		return imx6_pcie->dis_gpio;
+	}
+
+	imx6_pcie->power_on_gpio = of_get_named_gpio(node, "power-on-gpio", 0);
+	if (gpio_is_valid(imx6_pcie->power_on_gpio)) {
+		ret = devm_gpio_request_one(&pdev->dev,
+					    imx6_pcie->power_on_gpio,
+					    GPIOF_OUT_INIT_LOW,
+					    "PCIe power enable");
+		if (ret) {
+			dev_err(&pdev->dev, "unable to get power-on gpio\n");
+			return ret;
+		}
+	} else if (imx6_pcie->power_on_gpio == -EPROBE_DEFER) {
+		return imx6_pcie->power_on_gpio;
+	}
+
+	imx6_pcie->reset_gpio = of_get_named_gpio(node, "reset-gpio", 0);
+	imx6_pcie->gpio_active_high = of_property_read_bool(node,
+						"reset-gpio-active-high");
+	if (gpio_is_valid(imx6_pcie->reset_gpio)) {
+		ret = devm_gpio_request_one(dev, imx6_pcie->reset_gpio,
+				imx6_pcie->gpio_active_high ?
+					GPIOF_OUT_INIT_HIGH :
+					GPIOF_OUT_INIT_LOW,
+				"PCIe reset");
+		if (ret) {
+			dev_err(dev, "unable to get reset gpio\n");
+			return ret;
+		}
+	} else if (imx6_pcie->reset_gpio == -EPROBE_DEFER) {
+		return imx6_pcie->reset_gpio;
 	}
 
 	/* Fetch clocks */
@@ -740,7 +811,8 @@ static void imx6_pcie_shutdown(struct platform_device *pdev)
 	struct imx6_pcie *imx6_pcie = platform_get_drvdata(pdev);
 
 	/* bring down link, so bootloader gets clean state in case of reboot */
-	imx6_pcie_assert_core_reset(&imx6_pcie->pp);
+	if (imx6_pcie->variant == IMX6Q)
+		imx6_pcie_assert_core_reset(imx6_pcie);
 }
 
 static const struct of_device_id imx6_pcie_of_match[] = {
