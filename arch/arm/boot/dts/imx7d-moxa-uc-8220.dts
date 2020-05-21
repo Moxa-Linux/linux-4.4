@@ -13,6 +13,8 @@
 };
 
 &pcie {
+	power-on-gpio = <&gpio4 20 GPIO_ACTIVE_LOW>;
+	reset-gpio = <&i2cgpio1 14 GPIO_ACTIVE_LOW>;
 	/delete-property/ fsl,max-link-speed;
 	status = "okay";
 };
