@@ -70,17 +70,6 @@
 			off-on-delay = <20000>;
 			enable-active-high;
 		};
-
-		wlreg_on: fixedregulator@6 {
-			compatible = "regulator-fixed";
-			regulator-min-microvolt = <5000000>;
-			regulator-max-microvolt = <5000000>;
-			regulator-name = "wlreg_on";
-			gpio = <&gpio4 20 GPIO_ACTIVE_HIGH>;
-			startup-delay-us = <100>;
-			enable-active-high;
-			regulator-always-on;
-		};
 	};
 
 	firmware {
