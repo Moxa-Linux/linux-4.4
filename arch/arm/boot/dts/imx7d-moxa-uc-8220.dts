@@ -13,5 +13,6 @@
 };
 
 &pcie {
+	/delete-property/ fsl,max-link-speed;
 	status = "okay";
 };
