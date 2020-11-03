@@ -141,6 +141,7 @@ static const struct charlcd_ops hd44780_ops_gpio8 = {
 	.gotoxy		= hd44780_common_gotoxy,
 	.home		= hd44780_common_home,
 	.clear_display	= hd44780_common_clear_display,
+	.init_display	= hd44780_common_init_display,
 };
 
 /* Send a command to the LCD panel in 4 bit GPIO mode */
@@ -195,6 +196,7 @@ static const struct charlcd_ops hd44780_ops_gpio4 = {
 	.gotoxy		= hd44780_common_gotoxy,
 	.home		= hd44780_common_home,
 	.clear_display	= hd44780_common_clear_display,
+	.init_display	= hd44780_common_init_display,
 };
 
 static int hd44780_probe(struct platform_device *pdev)
