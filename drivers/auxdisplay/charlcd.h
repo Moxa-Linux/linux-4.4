@@ -13,6 +13,11 @@
 #ifndef _CHARLCD_H
 #define _CHARLCD_H
 
+enum charlcd_onoff {
+	CHARLCD_OFF = 0,
+	CHARLCD_ON,
+};
+
 struct charlcd {
 	const struct charlcd_ops *ops;
 	const unsigned char *char_conv;	/* Optional */
@@ -34,7 +39,7 @@ struct charlcd_ops {
 	/* Optional */
 	void (*write_cmd_raw4)(struct charlcd *lcd, int cmd);	/* 4-bit only */
 	void (*clear_fast)(struct charlcd *lcd);
-	void (*backlight)(struct charlcd *lcd, int on);
+	void (*backlight)(struct charlcd *lcd, enum charlcd_onoff on);
 };
 
 struct charlcd *charlcd_alloc(unsigned int drvdata_size);
