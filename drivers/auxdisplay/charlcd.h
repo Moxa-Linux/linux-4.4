@@ -25,6 +25,12 @@ struct charlcd {
 	int height;
 	int width;
 
+	/* Contains the LCD X and Y offset */
+	struct {
+		unsigned long x;
+		unsigned long y;
+	} addr;
+
 	void *drvdata;
 };
 
