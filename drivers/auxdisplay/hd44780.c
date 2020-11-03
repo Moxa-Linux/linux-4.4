@@ -114,9 +114,8 @@ static void hd44780_write_gpio4(struct hd44780 *hd, u8 val, unsigned int rs)
 }
 
 /* Send a command to the LCD panel in 8 bit GPIO mode */
-static void hd44780_write_cmd_gpio8(struct charlcd *lcd, int cmd)
+static void hd44780_write_cmd_gpio8(struct hd44780_common *hdc, int cmd)
 {
-	struct hd44780_common *hdc = lcd->drvdata;
 	struct hd44780 *hd = hdc->hd44780;
 
 	hd44780_write_gpio8(hd, cmd, 0);
@@ -137,14 +136,12 @@ static void hd44780_write_data_gpio8(struct hd44780_common *hdc, int data)
 }
 
 static const struct charlcd_ops hd44780_ops_gpio8 = {
-	.write_cmd	= hd44780_write_cmd_gpio8,
 	.backlight	= hd44780_backlight,
 };
 
 /* Send a command to the LCD panel in 4 bit GPIO mode */
-static void hd44780_write_cmd_gpio4(struct charlcd *lcd, int cmd)
+static void hd44780_write_cmd_gpio4(struct hd44780_common *hdc, int cmd)
 {
-	struct hd44780_common *hdc = lcd->drvdata;
 	struct hd44780 *hd = hdc->hd44780;
 
 	hd44780_write_gpio4(hd, cmd, 0);
@@ -154,10 +151,9 @@ static void hd44780_write_cmd_gpio4(struct charlcd *lcd, int cmd)
 }
 
 /* Send 4-bits of a command to the LCD panel in raw 4 bit GPIO mode */
-static void hd44780_write_cmd_raw_gpio4(struct charlcd *lcd, int cmd)
+static void hd44780_write_cmd_raw_gpio4(struct hd44780_common *hdc, int cmd)
 {
 	int values[10];	/* for DATA[0-7], RS, RW, but DATA[0-3] is unused */
-	struct hd44780_common *hdc = lcd->drvdata;
 	struct hd44780 *hd = hdc->hd44780;
 	unsigned int i, n;
 
@@ -190,8 +186,6 @@ static void hd44780_write_data_gpio4(struct hd44780_common *hdc, int data)
 }
 
 static const struct charlcd_ops hd44780_ops_gpio4 = {
-	.write_cmd	= hd44780_write_cmd_gpio4,
-	.write_cmd_raw4	= hd44780_write_cmd_raw_gpio4,
 	.backlight	= hd44780_backlight,
 };
 
@@ -293,9 +287,12 @@ static int hd44780_probe(struct platform_device *pdev)
 	if (ifwidth == 8) {
 		lcd->ops = &hd44780_ops_gpio8;
 		hdc->write_data = hd44780_write_data_gpio8;
+		hdc->write_cmd = hd44780_write_cmd_gpio8;
 	} else {
 		lcd->ops = &hd44780_ops_gpio4;
 		hdc->write_data = hd44780_write_data_gpio4;
+		hdc->write_cmd = hd44780_write_cmd_gpio4;
+		hdc->write_cmd_raw4 = hd44780_write_cmd_raw_gpio4;
 	}
 
 	ret = charlcd_register(lcd);
