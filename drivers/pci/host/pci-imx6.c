@@ -340,8 +340,8 @@ static int imx6_pcie_deassert_core_reset(struct imx6_pcie *imx6_pcie)
 	int ret;
 
 	if (gpio_is_valid(imx6_pcie->power_on_gpio)) {
-		mdelay(100);
 		gpio_set_value_cansleep(imx6_pcie->power_on_gpio, 1);
+		mdelay(100);
 	}
 
 	ret = clk_prepare_enable(imx6_pcie->pcie);
