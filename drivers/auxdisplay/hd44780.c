@@ -341,8 +341,8 @@ static int hd44780_remove(struct platform_device *pdev)
 {
 	struct charlcd *lcd = platform_get_drvdata(pdev);
 
-	kfree(lcd->drvdata);
 	charlcd_unregister(lcd);
+	kfree(lcd->drvdata);
 
 	kfree(lcd);
 	return 0;
