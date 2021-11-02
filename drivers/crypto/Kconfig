@@ -159,6 +159,12 @@ config CRYPTO_GHASH_S390
 
 	  It is available as of z196.
 
+config CONFIG_CRYPTO_DEV_LINUX
+	tristate "Cryptodev-linux"
+	help
+	  Cryptodev-linux is a Linux-kernel device that allows user-space
+	  access to hardware cryptographic accelerators.
+
 config CRYPTO_DEV_MV_CESA
 	tristate "Marvell's Cryptographic Engine"
 	depends on PLAT_ORION
