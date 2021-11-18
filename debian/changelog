@@ -1,3 +1,18 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa1+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add 'bison', 'dh-exec', 'flex', 'libc6-dev:armhf' to build dependence.
+  * Add Crypto Dev Linux 1.12 support.
+  * Add UPort 11x0 series support.
+  * Add btrfs support.
+
+  [Changed]
+  * Enable i.MX SDMA engine as a module instead built-in.
+  * Upgrade mxuport version to v4.0.5.
+  * Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Wed, 08 Dec 2021 17:52:38 +0800
+
 imx7-linux-4.4 (4.4.176+1.1.1) stretch; urgency=medium
 
   [Fixed]
