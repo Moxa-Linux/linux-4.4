@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Remus Wu <remusty.wu@moxa.com>
 Standards-Version: 4.1.2
 Build-Depends: debhelper (>= 10),
-               initramfs-tools,
-               kmod
+               bison, initramfs-tools, kmod
 Homepage: https://www.moxa.com/
 Vcs-Git: http://gitlab.syssw.moxa.com/MXcore-Kernel/imx7-linux-4.4
 
