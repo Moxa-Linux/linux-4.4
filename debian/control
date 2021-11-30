@@ -1,8 +1,7 @@
 Source: imx7-linux-4.4
 Section: kernel
 Priority: optional
-Maintainer: Fero JD Zhou <FeroJD.Zhou@moxa.com>
-Uploaders: Remus Wu <remusty.wu@moxa.com>
+Maintainer: Remus Wu <remusty.wu@moxa.com>
 Standards-Version: 4.1.2
 Build-Depends: debhelper (>= 10),
                initramfs-tools,
