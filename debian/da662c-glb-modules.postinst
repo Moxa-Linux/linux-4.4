@@ -19,7 +19,7 @@ set -e
 
 case "$1" in
 configure|triggered)
-        depmod "4.4.0-cip-rt-moxa-ls102xa-da662c-glb"
+        depmod "4.4.0-cip-rt-moxa-ls102xa"
 	;;
 
 abort-upgrade|abort-remove|abort-deconfigure)
