@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ls102xa-linux-4.4
-Source: https://github.com/Moxa-Linux/ls102xa-linux-4.4
+Source: https://gitlab.com/moxa/ibg/software/platform/linux/packages/linux-4.4
 
 Files: *
 Copyright: 1991-2012 Linus Torvalds and many others
@@ -13,7 +13,7 @@ Copyright: 2020 Moxa
 License: Apache-2.0
 
 Files: debian/*
-Copyright: 2020 Wayne Wei <WayneW.Wei@moxa.com>
+Copyright: 2022 Wayne Wei <WayneW.Wei@moxa.com>
 License: Apache-2.0
 
 License: GPL-2
