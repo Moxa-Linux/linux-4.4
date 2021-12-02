@@ -654,15 +654,6 @@
 			>;
 		};
 
-		pinctrl_uart6: uart6grp {
-			fsl,pins = <
-				MX7D_PAD_ECSPI1_MOSI__UART6_DCE_TX	0x79
-				MX7D_PAD_ECSPI1_SCLK__UART6_DCE_RX	0x79
-				MX7D_PAD_ECSPI1_SS0__UART6_DCE_CTS	0x79
-				MX7D_PAD_ECSPI1_MISO__UART6_DCE_RTS	0x79
-			>;
-		};
-
 		pinctrl_usdhc1: usdhc1grp {
 			fsl,pins = <
 				MX7D_PAD_SD1_CMD__SD1_CMD		0x59
