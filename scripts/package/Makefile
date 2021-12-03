@@ -96,7 +96,6 @@ bindeb-pkg: FORCE
 	$(MAKE) KBUILD_SRC=
 	+$(call cmd,builddeb)
 
-clean-dirs += $(objtree)/debian/
 
 
 # tarball targets
@@ -105,7 +104,6 @@ tar%pkg: FORCE
 	$(MAKE) KBUILD_SRC=
 	$(CONFIG_SHELL) $(srctree)/scripts/package/buildtar $@
 
-clean-dirs += $(objtree)/tar-install/
 
 
 # perf-pkg - generate a source tarball with perf source
