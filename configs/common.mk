@@ -20,7 +20,7 @@ KERNEL_NAME := 4.4.0-cip-rt-moxa-$(SOC)
 
 OUTPUT_DIR := output
 MODULES_OUTPUT_DIR := $(OUTPUT_DIR)/modules
-HEADERS_OUTPUT_DIR := $(OUTPUT_DIR)/headers/linux-headers-$(KERNEL_NAME)
+HEADERS_OUTPUT_DIR := $(OUTPUT_DIR)/headers/usr/src/linux-headers-$(KERNEL_NAME)
 ITBS_OUTPUT_DIR    := $(OUTPUT_DIR)/itbs
 
 ifneq (,$(DEB_HOST_GNU_TYPE))
