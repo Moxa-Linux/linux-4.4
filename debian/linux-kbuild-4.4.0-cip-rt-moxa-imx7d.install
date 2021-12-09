@@ -1,0 +1,2 @@
+#!/usr/bin/dh-exec
+output/kbuild/${DEB_HOST_GNU_TYPE}/scripts/* /usr/lib/linux-kbuild-4.4.0-cip-rt-moxa-imx7d/scripts/

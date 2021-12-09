@@ -1,0 +1,126 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa1+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add 'bison', 'dh-exec', 'flex', 'libc6-dev:armhf' to build dependence.
+  * Add Crypto Dev Linux 1.12 support.
+  * Add UPort 11x0 series support.
+  * Add btrfs support.
+
+  [Changed]
+  * Enable i.MX SDMA engine as a module instead built-in.
+  * Upgrade mxuport version to v4.0.5.
+  * Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Wed, 08 Dec 2021 17:52:38 +0800
+
+imx7-linux-4.4 (4.4.176+1.1.1) stretch; urgency=medium
+
+  [Fixed]
+  * Fix CVE-2021-33909
+
+ -- Remus Wu <remusty.wu@moxa.com>  Tue, 03 Aug 2021 16:04:56 +0800
+
+imx7-linux-4.4 (4.4.176+1.1.0) stretch; urgency=medium
+
+  [Added]
+  * Support "Set DTR" request for cellular module based on MDM9230 chipset.
+
+  [Changed]
+  * Backported TPM2.0 driver from linux 4.19.115-cip24-rt9.
+  * Optimized the delay handle method of imx7d mmc bus.
+  * Optimized the initial timing sequence of PCIe host on imx7d.
+
+  [Fixed]
+  * NXP IMX7D_2N09P e10728 (PCIe PLL may fail to lock under cold temperature).
+
+ -- Wes Huang <Wes.Huang@moxa.com>  Sun, 13 Dec 2020 22:44:06 -0500
+
+imx7-linux-4.4 (4.4.176+1.0.11) stretch; urgency=medium
+
+  * ARM: dts: imx7d: add clock-frequency to CPU nodes
+  * ARM: dts: imx7d: remove snvs_poweroff node
+  * dmaengine: imx-sdma: Add i.MX7 support
+  * ARM: dts: imx7d: Add SDMA node
+  * ARM: dts: fix imx7d boot spi dma setup error
+  * MLK-14325-2 PCI: imx: enable pcie on 4.9 kernel
+  * PCI: imx6: Add DT property for link gen, default to Gen1
+  * fix: partial sync up to source
+  * fix: dts: remove wlreg_on from UC-8210
+  * fix: dts: imx7d-moxa-uc-8220: remove property fsl,max-link-speed
+  * fix: dts: imx7d-moxa-uc-8220: add power and reset gpio for pcie
+
+ -- Remus Wu <remusty.wu@moxa.com>  Fri, 22 May 2020 02:12:27 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.10) stretch; urgency=medium
+
+  * fix: imx7d_defconfig: adjust kernel/user memory to 1G/3G
+  * debian: update build dependence
+
+ -- Remus Wu <remusty.wu@moxa.com>  Wed, 13 May 2020 14:24:48 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.9) stretch; urgency=medium
+
+  * fix: imx7d_defcong: support docker exec command
+
+ -- Remus Wu <remusty.wu@moxa.com>  Thu, 23 Apr 2020 16:44:55 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.8) stretch; urgency=medium
+
+  * defconfig: imx7d_defconfig: add pci=nomsi to cmdline
+  * fdt: fix extend of cmd line
+  * Support wifi module JWX6058 on chip QCA6174A
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Wed, 06 Nov 2019 17:49:33 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.7) stretch; urgency=medium
+
+  * fix-mmc-retune-error
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Mon, 23 Sep 2019 18:48:09 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.6) stretch; urgency=medium
+
+  * fix: debian/rules: add missing file kernel_release.h
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Fri, 12 Jul 2019 19:46:16 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.5) stretch; urgency=medium
+
+  * defconfig: enable MOXA nport driver for uc8200
+  * Add Moxa NPort Real TTY driver
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Thu, 04 Jul 2019 18:40:59 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.4) stretch; urgency=medium
+
+  * fix: remove blank line
+  * doc: add README.md
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Fri, 28 Jun 2019 14:53:17 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.3) stretch; urgency=medium
+
+  * add raw ip feature
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Thu, 27 Jun 2019 09:34:55 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.2) stretch; urgency=medium
+
+  * qmi_wwan.c: Support YUGA NC5
+
+ -- Fero JD Zhou <FeroJD.Zhou@moxa.com>  Tue, 11 Jun 2019 13:04:51 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.1) stretch; urgency=medium
+
+  * defconfig: imx7d_defconfig: adjust printk setting
+  * net: ath10k: fix poor tx performance in QCA6174 series
+  * fix: set /boot as uc8200-kernel package install folder
+
+ -- Wes Huang <Wes.Huang@moxa.com>  Mon, 10 Jun 2019 11:58:02 +0800
+
+imx7-linux-4.4 (4.4.176+1.0.0) stretch; urgency=medium
+
+  * feat: add i.MX7 kernel packages
+  * Import CIP Linux kernel 4.4.176
+
+ -- Wes Huang <Wes.Huang@moxa.com>  Thu, 23 May 2019 20:34:20 +0800
