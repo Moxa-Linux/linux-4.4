@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+#!/usr/bin/make -f
+
+include configs/am335x.mk
+include configs/build.mk
