@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mkimage -f its/imx7d-moxa-uc-8200.its its/imx7d-moxa-uc-8200.itb

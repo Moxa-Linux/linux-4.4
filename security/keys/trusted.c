@@ -11,6 +11,7 @@
  * See Documentation/security/keys-trusted-encrypted.txt
  */
 
+#include <crypto/hash_info.h>
 #include <linux/uaccess.h>
 #include <linux/module.h>
 #include <linux/init.h>
@@ -381,7 +382,7 @@ static int pcrlock(const int pcrnum)
 
 	if (!capable(CAP_SYS_ADMIN))
 		return -EPERM;
-	ret = tpm_get_random(TPM_ANY_NUM, hash, SHA1_DIGEST_SIZE);
+	ret = tpm_get_random(NULL, hash, SHA1_DIGEST_SIZE);
 	if (ret != SHA1_DIGEST_SIZE)
 		return ret;
 	return tpm_pcr_extend(TPM_ANY_NUM, pcrnum, hash) ? -EINVAL : 0;
@@ -397,7 +398,7 @@ static int osap(struct tpm_buf *tb, struct osapsess *s,
 	unsigned char ononce[TPM_NONCE_SIZE];
 	int ret;
 
-	ret = tpm_get_random(TPM_ANY_NUM, ononce, TPM_NONCE_SIZE);
+	ret = tpm_get_random(NULL, ononce, TPM_NONCE_SIZE);
 	if (ret != TPM_NONCE_SIZE)
 		return ret;
 
@@ -492,7 +493,7 @@ static int tpm_seal(struct tpm_buf *tb, uint16_t keytype,
 	if (ret < 0)
 		goto out;
 
-	ret = tpm_get_random(TPM_ANY_NUM, td->nonceodd, TPM_NONCE_SIZE);
+	ret = tpm_get_random(NULL, td->nonceodd, TPM_NONCE_SIZE);
 	if (ret != TPM_NONCE_SIZE)
 		goto out;
 	ordinal = htonl(TPM_ORD_SEAL);
@@ -602,7 +603,7 @@ static int tpm_unseal(struct tpm_buf *tb,
 
 	ordinal = htonl(TPM_ORD_UNSEAL);
 	keyhndl = htonl(SRKHANDLE);
-	ret = tpm_get_random(TPM_ANY_NUM, nonceodd, TPM_NONCE_SIZE);
+	ret = tpm_get_random(NULL, nonceodd, TPM_NONCE_SIZE);
 	if (ret != TPM_NONCE_SIZE) {
 		pr_info("trusted_key: tpm_get_random failed (%d)\n", ret);
 		return ret;
@@ -710,7 +711,10 @@ enum {
 	Opt_err = -1,
 	Opt_new, Opt_load, Opt_update,
 	Opt_keyhandle, Opt_keyauth, Opt_blobauth,
-	Opt_pcrinfo, Opt_pcrlock, Opt_migratable
+	Opt_pcrinfo, Opt_pcrlock, Opt_migratable,
+	Opt_hash,
+	Opt_policydigest,
+	Opt_policyhandle,
 };
 
 static const match_table_t key_tokens = {
@@ -723,6 +727,9 @@ static const match_table_t key_tokens = {
 	{Opt_pcrinfo, "pcrinfo=%s"},
 	{Opt_pcrlock, "pcrlock=%s"},
 	{Opt_migratable, "migratable=%s"},
+	{Opt_hash, "hash=%s"},
+	{Opt_policydigest, "policydigest=%s"},
+	{Opt_policyhandle, "policyhandle=%s"},
 	{Opt_err, NULL}
 };
 
@@ -736,6 +743,15 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
 	int res;
 	unsigned long handle;
 	unsigned long lock;
+	unsigned int digest_len;
+	int i;
+	int tpm2;
+
+	tpm2 = tpm_is_tpm2(TPM_ANY_NUM);
+	if (tpm2 < 0)
+		return tpm2;
+
+	opt->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
 
 	while ((p = strsep(&c, " \t"))) {
 		if (*p == '\0' || *p == ' ' || *p == '\t')
@@ -786,6 +802,40 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
 			if (res < 0)
 				return -EINVAL;
 			opt->pcrlock = lock;
+			break;
+		case Opt_hash:
+			if (test_bit(Opt_policydigest, &token_mask))
+				return -EINVAL;
+			for (i = 0; i < HASH_ALGO__LAST; i++) {
+				if (!strcmp(args[0].from, hash_algo_name[i])) {
+					opt->hash = i;
+					break;
+				}
+			}
+			if (i == HASH_ALGO__LAST)
+				return -EINVAL;
+			if  (!tpm2 && i != HASH_ALGO_SHA1) {
+				pr_info("trusted_key: TPM 1.x only supports SHA-1.\n");
+				return -EINVAL;
+			}
+			break;
+		case Opt_policydigest:
+			digest_len = hash_digest_size[opt->hash];
+			if (!tpm2 || strlen(args[0].from) != (2 * digest_len))
+				return -EINVAL;
+			res = hex2bin(opt->policydigest, args[0].from,
+				      digest_len);
+			if (res < 0)
+				return -EINVAL;
+			opt->policydigest_len = digest_len;
+			break;
+		case Opt_policyhandle:
+			if (!tpm2)
+				return -EINVAL;
+			res = kstrtoul(args[0].from, 16, &handle);
+			if (res < 0)
+				return -EINVAL;
+			opt->policyhandle = handle;
 			break;
 		default:
 			return -EINVAL;
@@ -965,7 +1015,7 @@ static int trusted_instantiate(struct key *key,
 		break;
 	case Opt_new:
 		key_len = payload->key_len;
-		ret = tpm_get_random(TPM_ANY_NUM, payload->key, key_len);
+		ret = tpm_get_random(NULL, payload->key, key_len);
 		if (ret != key_len) {
 			pr_info("trusted_key: key_create failed (%d)\n", ret);
 			goto out;

@@ -351,10 +351,17 @@ dtb-$(CONFIG_SOC_IMX6SX) += \
 dtb-$(CONFIG_SOC_IMX6UL) += \
 	imx6ul-14x14-evk.dtb
 dtb-$(CONFIG_SOC_IMX7D) += \
-	imx7d-sdb.dtb
+	imx7d-sdb.dtb \
+	imx7d-moxa-uc-8210.dtb \
+	imx7d-moxa-uc-8220.dtb
 dtb-$(CONFIG_SOC_LS1021A) += \
 	ls1021a-qds.dtb \
-	ls1021a-twr.dtb
+	ls1021a-twr.dtb \
+	moxa-uc8410a.dtb \
+	ls1021a-moxa-uc-8410a.dtb \
+	ls1021a-moxa-uc-8540.dtb \
+	moxa-uc8580.dtb \
+	ls102xa-moxa-da-662c.dtb
 dtb-$(CONFIG_SOC_VF610) += \
 	vf500-colibri-eval-v3.dtb \
 	vf610-colibri-eval-v3.dtb \
@@ -468,7 +475,26 @@ dtb-$(CONFIG_SOC_AM33XX) += \
 	am335x-pepper.dtb \
 	am335x-lxm.dtb \
 	am335x-chiliboard.dtb \
-	am335x-wega-rdk.dtb
+	am335x-wega-rdk.dtb \
+	moxa-uc8100.dtb \
+	moxa-uc8100-me.dtb \
+	am335x-moxa-uc-2101.dtb \
+	am335x-moxa-uc-2102.dtb \
+	am335x-moxa-uc-2104.dtb \
+	am335x-moxa-uc-2111.dtb \
+	am335x-moxa-uc-2112.dtb \
+	am335x-moxa-uc-2114.dtb \
+	am335x-moxa-uc-2116.dtb \
+	am335x-moxa-uc-3101.dtb \
+	am335x-moxa-uc-3111.dtb \
+	am335x-moxa-uc-3121.dtb \
+	am335x-moxa-uc-5101.dtb \
+	am335x-moxa-uc-5102.dtb \
+	am335x-moxa-uc-5111.dtb \
+	am335x-moxa-uc-5112.dtb \
+	am335x-moxa-uc-8100.dtb \
+	am335x-moxa-uc-8100-me.dtb \
+	am335x-moxa-uc-8100a-me.dtb
 dtb-$(CONFIG_ARCH_OMAP4) += \
 	omap4-duovero-parlor.dtb \
 	omap4-panda.dtb \
