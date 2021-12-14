@@ -22,12 +22,6 @@ ifeq ($(DEB_HOST_ARCH), armhf)
 	@dh_shlibdeps -l/usr/arm-linux-gnueabihf/lib --
 endif
 
-override_dh_auto_install: ;
-
-# Create kbuild tools
-	$(MAKE) -f debian/Makefile.scripts \
-		OUTDIR=$(SCRIPTS_OUTDIR)
-
 override_dh_auto_install:
 	$(info Skip dh_auto_install)
 
