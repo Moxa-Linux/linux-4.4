@@ -17,11 +17,14 @@ Files:
  arch/arm/configs/uc8100a-me_defconfig
  arch/arm/configs/uc8100me_defconfig
  its/*
-Copyright: 2017-2019 Moxa MXcore team
+Copyright: 2021 MOXA Inc
 License: Apache-2.0
 
 Files: debian/*
 Copyright: 2019 Ken CJ Chou <KenCJ.Chou@moxa.com>
+           2021 TungYu TY Yang <TungyuTY.Yang@moxa.com>
+           2021 Chris SR Lu <ChrisSR.Lu@moxa.com>
+           2021 Henry LC Chen <HenryLC.Chen@moxa.com>
 License: Apache-2.0
 
 License: GPL-2
