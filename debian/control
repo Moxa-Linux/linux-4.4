@@ -24,6 +24,8 @@ Package: linux-headers-4.4.0-cip-rt-moxa-am335x
 Architecture: armhf
 Depends: ${misc:Depends},
          linux-kbuild-4.4.0-cip-rt-moxa-am335x (= ${binary:Version})
+Conflicts: linux-headers-4.4.0-cip-rt-am335x
+Replaces: linux-headers-4.4.0-cip-rt-am335x
 Description: Linux kernel header files for AM335x CIP Linux
  This package provides the kernel header files for AM335x CIP Linux,
  generally used for building out-of-tree kernel modules, and can be used
@@ -34,6 +36,8 @@ Architecture: amd64 armhf
 Depends: ${misc:Depends},
          ${perl:Depends},
          ${shlibs:Depends}
+Conflicts: linux-kbuild-4.4.0-cip-rt-am335x
+Replaces: linux-kbuild-4.4.0-cip-rt-am335x
 Multi-Arch: foreign
 Description: Kbuild infrastructure for AM335x CIP Linux
  This package provides the tools needed for building kernel modules
