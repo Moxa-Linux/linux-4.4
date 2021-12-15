@@ -32,6 +32,44 @@ Description: Kbuild infrastructure for ls102xa CIP Linux
  This package provides the tools needed for building kernel modules
  for the ls102xa CIP Linux headers packages
 
+Package: linux-headers-4.4.0-cip-rt-moxa-ls102xa-da662c-glb
+Architecture: armhf
+Depends: ${misc:Depends},
+         linux-kbuild-4.4.0-cip-rt-moxa-ls102xa-da662c-glb (= ${binary:Version})
+Description: Linux kernel header files for ls102xa CIP Linux
+ This package provides the kernel header files for ls102xa CIP Linux,
+ generally used for building out-of-tree kernel modules, and can be used
+ for building modules that load into the ls102xa CIP Linux kernel.
+
+Package: linux-kbuild-4.4.0-cip-rt-moxa-ls102xa-da662c-glb
+Architecture: amd64 armhf
+Depends: ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends}
+Multi-Arch: foreign
+Description: Kbuild infrastructure for ls102xa CIP Linux
+ This package provides the tools needed for building kernel modules
+ for the ls102xa CIP Linux headers packages
+
+Package: da662c-glb-kernel
+Architecture: armhf
+Depends: ${misc:Depends},
+         cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-da662c-glb (>= 1.10+1.0.0+glb),
+         da662c-glb-modules (= ${binary:Version})
+Description: ls102xa Flattened Image
+ Flattened image includes Linux kernel image and device trees.
+ Device tree describesthe hardware components on the device including
+ its layout. This package contains device trees for all models of Moxa
+ DA-662C devices.
+
+Package: da662c-glb-modules
+Architecture: armhf
+Depends: ${misc:Depends},
+         kmod
+Description: ls102xa standard kernel modules
+ The Linux standard kernel modules for DA-662C Linux kernel image.
+ This package contains all kernel modules for ls102xa CIP Linux 4.4.
+
 Package: uc8410a-kernel
 Architecture: armhf
 Depends: ${misc:Depends},

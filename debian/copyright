@@ -7,14 +7,13 @@ Copyright: 1991-2012 Linus Torvalds and many others
 License: GPL-2
 
 Files:
- arch/arm/boot/dts/ls102xa-moxa-uc-8420.dts
- arch/arm/boot/dts/ls102xa-moxa-uc-8422.dts
+ arch/arm/boot/dts/ls102xa-moxa-da-662c.dts
  arch/arm/configs/ls102xa_defconfig
-Copyright: 2019 Moxa
+Copyright: 2020 Moxa
 License: Apache-2.0
 
 Files: debian/*
-Copyright: 2019 Alif Chen <Alif.Chen@moxa.com>
+Copyright: 2020 Wayne Wei <WayneW.Wei@moxa.com>
 License: Apache-2.0
 
 License: GPL-2
