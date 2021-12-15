@@ -337,13 +337,12 @@
 };
 
 &dspi0 {
-	compatible = "fsl,vf610-dspi";
-	status = "okay";
 	bus-num = <0>;
+	status = "okay";
 
-	tpm_spi_tis@0 {
-		compatible = "tcg,tpm_spi_tis";
-		spi-max-frequency = <0x1388>;
-		reg = <0x0>;
+	tpm@0 {
+		compatible = "tcg,tpm_tis-spi";
+		reg = <0>;
+		spi-max-frequency = <500000>;
 	};
 };
