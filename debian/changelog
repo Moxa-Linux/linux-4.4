@@ -1,3 +1,31 @@
+ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa6+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add Crypto Dev Linux 1.12 support for i.MX7D.
+  * Add btrfs support for i.MX7D.
+  * Add UPort 11x0 series support for i.MX7D.
+  * Add USB Moxa UPORT Serial Driver for i.MX7D.
+  * Add USB Moxa UPORT Serial Driver for AM335X.
+  * Add USB Moxa UPORT Serial Driver for LS102XA.
+
+  [Changed]
+  * Enable i.MX SDMA engine as a module instead built-in for i.MX7D.
+  * Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
+  * Set mmcblk device name index fixed for AM335X.
+  * Fix issue of unexpected mmcblk index when boot from SD for AM335X.
+  * Provide cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa from uc8410a-modules.
+  * Provide cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-glb from
+    da662c-glb-modules.
+
+  [Fixed]
+  * Add Crypto Dev Linux 1.12 support for AM335X.
+  * Add configuration for setting mmcblk device index rules.
+  * Fix DSPI bus non-writeable issue for LS102XA.
+  * Fix DSPI device-tree configuration for UC-8540.
+  * Fix TPM device-tree configuration for UC-8540.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Thu, 06 Jan 2022 19:10:48 +0800
+
 ls102xa-linux-4.4 (4.4.201+1.1.6+deb9) stretch; urgency=medium
 
   * fix: dts: uc8580/uc8540: sw_ready LED default off
@@ -117,13 +145,13 @@ ls102xa-linux-4.4 (4.4.190+1.0.2) stretch; urgency=medium
 ls102xa-linux-4.4 (4.4.190+1.0.0) stretch; urgency=medium
 
   * kernel update to 4.4.190
-  * debian: Add UC-8410A kernel & modules package 
+  * debian: Add UC-8410A kernel & modules package
 
  -- Alif Chen <alif.chen@moxa.com>  Fri, 29 Nov 2019 10:44:17 +0800
 
 ls102xa-linux-4.4 (4.4.112+1.0.3) stretch; urgency=medium
 
-  * fix: ls1021a setup hrtimer based tick broadcast 
+  * fix: ls1021a setup hrtimer based tick broadcast
 
  -- Alif Chen <alif.chen@moxa.com>  Tue, 27 Aug 2019 14:32:15 +0800
 
