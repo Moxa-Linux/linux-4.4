@@ -1,10 +1,13 @@
 Source: am335x-linux-4.4
 Section: kernel
 Priority: optional
-Maintainer: Wes Huang <Wes.Huang@moxa.com>
+Maintainer: Chris SR Lu <ChrisSR.Lu@moxa.com>
+            Henry LC Chen <HenryLC.Chen@moxa.com>
+            TungYu TY Yang <TungyuTY.Yang@moxa.com>
 Uploaders: Fero JD Zhou <FeroJD.Zhou@moxa.com>
            Ken CJ Chou <KenCJ.Chou@moxa.com>
            SZ Lin (林上智) <sz.lin@moxa.com>
+           Wes Huang <Wes.Huang@moxa.com>
 Standards-Version: 4.1.2
 Build-Depends: debhelper (>= 10),
                libc6-dev:armhf,
