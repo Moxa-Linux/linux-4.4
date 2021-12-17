@@ -1,3 +1,17 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa4+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add cryptodev-linux support for am335x
+  * Add USB Moxa UPORT Serial Driver for am335x
+  * Add USB Moxa UPORT Serial Driver for ls102xa
+
+  [Fixed]
+  * Fix DSPI bus non-writeable issue for ls102xa
+  * Fix DSPI device-tree configutation for UC-8540
+  * Fix TPM device-tree configuration for UC-8540
+
+ -- Remus Wu <remusty.wu@moxa.com>  Wed, 22 Dec 2021 19:05:39 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa1+deb9) stretch; urgency=medium
 
   [Added]
