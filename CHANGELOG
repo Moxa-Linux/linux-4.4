@@ -1,0 +1,43 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [4.4.285-cip63-rt36-moxa5] - 2021-12-23
+### Added
+* Add CHANGELOG to record release history.
+
+## [4.4.285-cip63-rt36-moxa4] - 2021-12-22
+### Added
+* Add USB Moxa UPORT Serial Driver for AM335X.
+* Add USB Moxa UPORT Serial Driver for LS102XA.
+
+## [4.4.285-cip63-rt36-moxa3] - 2021-12-15
+### Fixed
+* Fix DSPI bus non-writeable issue for LS102XA.
+* Fix DSPI device-tree configuration for UC-8540.
+* Fix TPM device-tree configuration for UC-8540.
+
+## [4.4.285-cip63-rt36-moxa2] - 2021-12-10
+### Added
+* Add configuration for setting mmcblk device index rules.
+
+### Changed
+* Set mmcblk device name index fixed for AM335X.
+
+### Fixed
+* Add Crypto Dev Linux 1.12 support for AM335X.
+
+## [4.4.285-cip63-rt36-moxa1] - 2021-12-08
+### Added
+* Add Crypto Dev Linux 1.12 support for i.MX7D.
+* Add btrfs support for i.MX7D.
+* Add UPort 11x0 series support for i.MX7D.
+* Add USB Moxa UPORT Serial Driver for i.MX7D.
+
+### Changed
+* Enable i.MX SDMA engine as a module instead built-in for i.MX7D.
+* Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
