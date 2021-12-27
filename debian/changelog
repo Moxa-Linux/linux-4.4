@@ -1,28 +1,39 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa5+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add CHANGELOG to record release history.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Mon, 27 Dec 2021 15:00:50 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa4+deb9) stretch; urgency=medium
 
   [Added]
-  * Add cryptodev-linux support for am335x
-  * Add USB Moxa UPORT Serial Driver for am335x
-  * Add USB Moxa UPORT Serial Driver for ls102xa
+  * Add configuration for setting mmcblk device index rules.
+  * Add USB Moxa UPORT Serial Driver for AM335X.
+  * Add USB Moxa UPORT Serial Driver for LS102XA.
+
+  [Changed]
+  * Set mmcblk device name index fixed for AM335X.
 
   [Fixed]
-  * Fix DSPI bus non-writeable issue for ls102xa
-  * Fix DSPI device-tree configutation for UC-8540
-  * Fix TPM device-tree configuration for UC-8540
+  * Add Crypto Dev Linux 1.12 support for AM335X.
+  * Fix DSPI bus non-writeable issue for LS102XA.
+  * Fix DSPI device-tree configuration for UC-8540.
+  * Fix TPM device-tree configuration for UC-8540.
 
  -- Remus Wu <remusty.wu@moxa.com>  Wed, 22 Dec 2021 19:05:39 +0800
 
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa1+deb9) stretch; urgency=medium
 
   [Added]
+  * Add Crypto Dev Linux 1.12 support for i.MX7D.
+  * Add btrfs support for i.MX7D.
+  * Add UPort 11x0 series support for i.MX7D.
+  * Add USB Moxa UPORT Serial Driver for i.MX7D.
   * Add 'bison', 'dh-exec', 'flex', 'libc6-dev:armhf' to build dependence.
-  * Add Crypto Dev Linux 1.12 support.
-  * Add UPort 11x0 series support.
-  * Add btrfs support.
 
   [Changed]
-  * Enable i.MX SDMA engine as a module instead built-in.
-  * Upgrade mxuport version to v4.0.5.
+  * Enable i.MX SDMA engine as a module instead built-in for i.MX7D.
   * Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
 
  -- Remus Wu <remusty.wu@moxa.com>  Wed, 08 Dec 2021 17:52:38 +0800
