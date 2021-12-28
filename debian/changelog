@@ -26,6 +26,8 @@ am335x-linux-4.4 (4.4.285-cip63-rt36-moxa2+deb9) stretch; urgency=medium
   * Enable i.MX SDMA engine as a module instead built-in for i.MX7D.
   * Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
   * Set mmcblk device name index fixed for AM335X.
+  * Modify linux-headers-4.4.0-cip-rt-am335x package name into linux-headers-4.4.0-cip-rt-moxa-am335x.
+  * Modify linux-kbuild-4.4.0-cip-rt-am335x package name into linux-kbuild-4.4.0-cip-rt-moxa-am335x.
 
   [Fixed]
   * Add Crypto Dev Linux 1.12 support for AM335X.
