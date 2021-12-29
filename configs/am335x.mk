@@ -26,6 +26,7 @@ UC5100_DTB	:= $(SOC)-moxa-uc-5101 \
 		   $(SOC)-moxa-uc-5111 \
 		   $(SOC)-moxa-uc-5112
 UC8100_DTB	:= $(SOC)-moxa-uc-8100 \
+		   $(SOC)-moxa-uc-8100-v2.1 \
 		   moxa-uc8100
 UC8100_ME_DTB	:= $(SOC)-moxa-uc-8100-me
 UC8100A_ME_DTB	:= $(SOC)-moxa-uc-8100a-me
