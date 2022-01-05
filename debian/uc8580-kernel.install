@@ -1,2 +1,2 @@
-output/uImage_dtbs/uImage /var/tmp/p1/uImage_dtbs/
-output/uImage_dtbs/moxa-uc8580.dtb /var/tmp/p1/uImage_dtbs/
+arch/arm/boot/uImage /var/tmp/p1/uImage_dtbs/
+arch/arm/boot/dts/moxa-uc8580.dtb /var/tmp/p1/uImage_dtbs/
