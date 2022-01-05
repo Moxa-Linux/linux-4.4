@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa6] - 2022-01-04
+### Changed
+* Fix issue of unexpected mmcblk index when boot from SD
+  for AM335X.
+
 ## [4.4.285-cip63-rt36-moxa5] - 2021-12-23
 ### Added
 * Add CHANGELOG to record release history.
