@@ -40,7 +40,7 @@ Depends: ${misc:Depends},
          da662c-glb-modules (= ${binary:Version})
 Description: ls102xa Flattened Image
  Flattened image includes Linux kernel image and device trees.
- Device tree describesthe hardware components on the device including
+ Device tree describes the hardware components on the device including
  its layout. This package contains device trees for all models of Moxa
  DA-662C devices.
 
@@ -59,7 +59,7 @@ Depends: ${misc:Depends},
          uc8410a-modules (= ${binary:Version})
 Description: ls102xa Flattened Image
  Flattened image includes Linux kernel image and device trees.
- Device tree describesthe hardware components on the device including
+ Device tree describes the hardware components on the device including
  its layout. This package contains device trees for all models of Moxa
  UC-8410A devices.
 
@@ -77,7 +77,7 @@ Depends: ${misc:Depends},
          uc8540-modules (= ${binary:Version})
 Description: ls102xa Flattened Image
  Flattened image includes Linux kernel image and device trees.
- Device tree describesthe hardware components on the device including
+ Device tree describes the hardware components on the device including
  its layout. This package contains device trees for all models of Moxa
  UC-8540 devices.
 
@@ -95,7 +95,7 @@ Depends: ${misc:Depends},
          uc8580-modules (= ${binary:Version})
 Description: ls102xa Flattened Image
  Flattened image includes Linux kernel image and device trees.
- Device tree describesthe hardware components on the device including
+ Device tree describes the hardware components on the device including
  its layout. This package contains device trees for all models of Moxa
  UC-8580 devices.
 
