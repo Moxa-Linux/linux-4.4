@@ -33,16 +33,6 @@ Description: Kbuild infrastructure for ls102xa CIP Linux
  This package provides the tools needed for building kernel modules
  for the ls102xa CIP Linux headers packages
 
-Package: linux-kbuild-4.4.0-cip-rt-moxa-ls102xa-da662c-glb
-Architecture: amd64 armhf
-Depends: ${misc:Depends},
-         ${perl:Depends},
-         ${shlibs:Depends}
-Multi-Arch: foreign
-Description: Kbuild infrastructure for ls102xa CIP Linux
- This package provides the tools needed for building kernel modules
- for the ls102xa CIP Linux headers packages
-
 Package: da662c-glb-kernel
 Architecture: armhf
 Depends: ${misc:Depends},
