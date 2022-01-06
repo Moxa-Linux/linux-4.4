@@ -36,7 +36,6 @@ Description: Kbuild infrastructure for ls102xa CIP Linux
 Package: da662c-glb-kernel
 Architecture: armhf
 Depends: ${misc:Depends},
-         cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-da662c-glb (>= 1.10+1.0.0+glb),
          da662c-glb-modules (= ${binary:Version})
 Description: ls102xa Flattened Image
  Flattened image includes Linux kernel image and device trees.
@@ -48,6 +47,9 @@ Package: da662c-glb-modules
 Architecture: armhf
 Depends: ${misc:Depends},
          kmod
+Conflicts: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-glb
+Replaces: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-glb
+Provides: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-glb
 Description: ls102xa standard kernel modules
  The Linux standard kernel modules for DA-662C Linux kernel image.
  This package contains all kernel modules for ls102xa CIP Linux 4.4.
