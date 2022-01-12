@@ -1,0 +1,175 @@
+ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa6+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add Crypto Dev Linux 1.12 support for i.MX7D.
+  * Add btrfs support for i.MX7D.
+  * Add UPort 11x0 series support for i.MX7D.
+  * Add USB Moxa UPORT Serial Driver for i.MX7D.
+  * Add USB Moxa UPORT Serial Driver for AM335X.
+  * Add USB Moxa UPORT Serial Driver for LS102XA.
+
+  [Changed]
+  * Enable i.MX SDMA engine as a module instead built-in for i.MX7D.
+  * Upgrade Linux Kernel version to 4.4.285-cip63-rt36.
+  * Set mmcblk device name index fixed for AM335X.
+  * Fix issue of unexpected mmcblk index when boot from SD for AM335X.
+  * Provide cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa from uc8410a-modules.
+  * Provide cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa-glb from
+    da662c-glb-modules.
+
+  [Fixed]
+  * Add Crypto Dev Linux 1.12 support for AM335X.
+  * Add configuration for setting mmcblk device index rules.
+  * Fix DSPI bus non-writeable issue for LS102XA.
+  * Fix DSPI device-tree configuration for UC-8540.
+  * Fix TPM device-tree configuration for UC-8540.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Thu, 06 Jan 2022 19:10:48 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.6+deb9) stretch; urgency=medium
+
+  * fix: dts: uc8580/uc8540: sw_ready LED default off
+
+ -- Alif Chen <alif.chen@moxa.com>  Mon, 31 Aug 2020 15:17:30 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.5+deb9) stretch; urgency=medium
+
+  * Revert "fix: ls102xa_defconfig: adjust kernel/user memory to 1G/3G"
+
+ -- Alif Chen <alif.chen@moxa.com>  Fri, 24 Jul 2020 14:09:06 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.4+deb9) stretch; urgency=medium
+
+  * fix: ls102xa_defconfig: adjust kernel/user memory to 1G/3G
+
+ -- Alif Chen <alif.chen@moxa.com>  Wed, 22 Jul 2020 15:29:09 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.3) stretch; urgency=medium
+
+  * Add kernel packages for UC-8540 / UC-8580
+  * Take off localversion of CVSP from UC-8410A
+
+ -- Alif Chen <alif.chen@moxa.com>  Wed, 01 Jul 2020 21:45:25 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.2+deb9) jessie; urgency=medium
+
+  * dts: uc8410a/uc8540/uc8580: support QSPI macronix,mx25l6433f
+  * spi-nor: add QUAD read flag for MX25L6433FM2I-08G
+
+ -- Alif Chen <alif.chen@moxa.com>  Wed, 01 Apr 2020 12:34:57 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.1+deb9-v2) stretch; urgency=medium
+
+  * debain: kernel postinst supports 2 dtbs
+
+ -- Alif Chen <alif.chen@moxa.com>  Mon, 23 Mar 2020 11:31:09 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.1+deb9-1) stretch; urgency=medium
+
+  * debian: put UC-8410A HW-1.0 dts in kernel
+
+ -- Alif Chen <alif.chen@moxa.com>  Thu, 19 Mar 2020 19:03:13 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.1+deb9) stretch; urgency=medium
+
+  * feat: add localversion for UC-8410A (deb9)
+
+ -- Alif Chen <alif.chen@moxa.com>  Wed, 18 Mar 2020 02:03:21 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.1) stretch; urgency=medium
+
+  * PCI: Fix race condition in pci_enable/disable_device()
+  * pci: probe: force to reconfigure pcie bridge
+  * arm: config: add realtek for HW testing card
+  * gpio: mpc8xxx: Don't overwrite default irq_set_type callback
+
+ -- Alif Chen <alif.chen@moxa.com>  Fri, 13 Mar 2020 16:00:07 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.1.0) stretch; urgency=medium
+
+  * usb: xhci: bInterval quirk for TI TUSB73x0
+  * usb: xhci: add quirk flag for broken PED bits
+  * xhci: refactor and cleanup endpoint initialization.
+  * Revert "usb: xhci: bInterval quirk for TI TUSB73x0"
+  * arm: config: align config with Linux 4.1 ( UC-8580 / UC-8540 )
+  * arm: dts: add UC-8410A dts HW-1.0
+  * arm: dts: fix qspi partitions for UC-8580/UC-8540/UC-8410A
+
+ -- Alif Chen <alif.chen@moxa.com>  Mon, 02 Mar 2020 15:08:20 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.0.5) stretch; urgency=medium
+
+  * arm: configs: add Intel i210 / Innodisk EMPL-G201 driver support
+
+ -- Alif Chen <alif.chen@moxa.com>  Fri, 14 Feb 2020 09:22:30 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.0.4) stretch; urgency=medium
+
+  * ci: update .gitlab-ci.yml with 4.4.201-cip39-rt26
+
+ -- Alif Chen <alif.chen@moxa.com>  Tue, 07 Jan 2020 18:29:52 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.0.1) stretch; urgency=medium
+
+  * debian: Add uc8420-modules.postinst
+  * Fit uImage and dtbs in p1 from preinst/install/postinst
+
+ -- Alif Chen <alif.chen@moxa.com>  Tue, 07 Jan 2020 16:59:59 +0800
+
+ls102xa-linux-4.4 (4.4.201+1.0.0) stretch; urgency=medium
+
+  * import debian package from the lastest version
+
+ -- Alif Chen <alif.chen@moxa.com>  Tue, 07 Jan 2020 16:58:23 +0800
+
+ls102xa-linux-4.4 (4.4.190+1.0.4) stretch; urgency=medium
+
+  * arm: dio: Reform UC-8410A DIO driver
+
+ -- Alif Chen <alif.chen@moxa.com>  Tue, 17 Dec 2019 10:13:50 +0800
+
+ls102xa-linux-4.4 (4.4.190+1.0.3) stretch; urgency=medium
+
+  * Use moxa uport driver instead of TI 3410 driver
+  * workaround from errata of TUSB7340 (UC-8580)
+
+ -- Alif Chen <alif.chen@moxa.com>  Wed, 11 Dec 2019 18:36:23 +0800
+
+ls102xa-linux-4.4 (4.4.190+1.0.2) stretch; urgency=medium
+
+  * Fit uImage and dtbs in p1 from preinst/install/postinst
+  * 4.4.190+1.0.1 rebase to 4.4.190+1.0.2
+
+ -- Alif Chen <alif.chen@moxa.com>  Fri, 29 Nov 2019 13:21:37 +0800
+
+ls102xa-linux-4.4 (4.4.190+1.0.0) stretch; urgency=medium
+
+  * kernel update to 4.4.190
+  * debian: Add UC-8410A kernel & modules package
+
+ -- Alif Chen <alif.chen@moxa.com>  Fri, 29 Nov 2019 10:44:17 +0800
+
+ls102xa-linux-4.4 (4.4.112+1.0.3) stretch; urgency=medium
+
+  * fix: ls1021a setup hrtimer based tick broadcast
+
+ -- Alif Chen <alif.chen@moxa.com>  Tue, 27 Aug 2019 14:32:15 +0800
+
+ls102xa-linux-4.4 (4.4.112+1.0.2) stretch; urgency=medium
+
+  * MU860 tty intial name ttyMI* and it will symbolic link to ttyM*
+
+ -- Alif Chen <alif.chen@moxa.com>  Mon, 15 Jul 2019 13:24:36 +0800
+
+ls102xa-linux-4.4 (4.4.112+1.0.1) stretch; urgency=medium
+
+  * fix: Kbuild is empty since the *.install has wrong name 'ls1021a' -> 'ls102xa'
+  * fix: kernel local version -> '-moxa-ls102xa'
+
+ -- Alif Chen <alif.chen@moxa.com>  Fri, 12 Jul 2019 09:41:41 +0800
+
+ls102xa-linux-4.4 (4.4.112+1.0.0) stretch; urgency=medium
+
+  * feat: add ls102xa kernel packages
+
+ -- Alif Chen <Alif.Chen@moxa.com>  Wed, 10 Jul 2019 17:19:20 +0800

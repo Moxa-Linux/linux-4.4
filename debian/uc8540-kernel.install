@@ -1,0 +1,2 @@
+arch/arm/boot/uImage /var/tmp/p1/uImage_dtbs/
+arch/arm/boot/dts/ls1021a-moxa-uc-8540.dtb /var/tmp/p1/uImage_dtbs/
