@@ -15,7 +15,9 @@ UC2100_DTB	:= $(SOC)-moxa-uc-2101 \
 		   $(SOC)-moxa-uc-2102 \
 		   $(SOC)-moxa-uc-2104 \
 		   $(SOC)-moxa-uc-2111 \
+		   $(SOC)-moxa-uc-2111-v1.1 \
 		   $(SOC)-moxa-uc-2112 \
+		   $(SOC)-moxa-uc-2112-v1.1 \
 		   $(SOC)-moxa-uc-2114 \
 		   $(SOC)-moxa-uc-2116
 UC3100_DTB	:= $(SOC)-moxa-uc-3101 \
