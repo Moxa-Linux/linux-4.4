@@ -43,6 +43,22 @@
 			compression = "none";
 			load = <0x80000000>;
 		};
+		fdt@uc3112 {
+			description = "Flattened Device Tree blob for UC3112";
+			data = /incbin/("../arch/arm/boot/dts/am335x-moxa-uc-3112.dtb");
+			type = "flat_dt";
+			arch = "arm";
+			compression = "none";
+			load = <0x80000000>;
+		};
+		fdt@uc3122 {
+			description = "Flattened Device Tree blob for UC3122";
+			data = /incbin/("../arch/arm/boot/dts/am335x-moxa-uc-3122.dtb");
+			type = "flat_dt";
+			arch = "arm";
+			compression = "none";
+			load = <0x80000000>;
+		};
 	};
 	
 	configurations {
@@ -61,6 +77,16 @@
 			description = "Boot Linux kernel with uc3121 FDT blob";
 			kernel = "kernel@uc3100";
 			fdt = "fdt@uc3121";
+		};
+		uc3112 {
+			description = "Boot Linux kernel with uc3112 FDT blob";
+			kernel = "kernel@uc3100";
+			fdt = "fdt@uc3112";
+		};
+		uc3122 {
+			description = "Boot Linux kernel with uc3122 FDT blob";
+			kernel = "kernel@uc3100";
+			fdt = "fdt@uc3122";
 		};
 	};
 };
