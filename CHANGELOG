@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa8] - 2022-01-28
+### Added
+* Add UC-3112-LX and UC-3122-LX configurations into its file.
+* Add am335x-moxa-uc-3112.dts and am335x-moxa-uc-3122.dts files.
+
+## [4.4.285-cip63-rt36-moxa7] - 2022-01-13
+### Added
+* Add UC-8100 new device tree for new hardware with ICPLUS PHY.
+### Changed
+* Fixed UART port number for UC-8100-ME.
+
 ## [4.4.285-cip63-rt36-moxa6] - 2022-01-04
 ### Changed
 * Fix issue of unexpected mmcblk index when boot from SD
