@@ -88,7 +88,7 @@ Conflicts: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa, moxa-nport-real-tty-driver
 Replaces: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa, moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa
 Provides: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa, moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa
 Description: ls102xa standard kernel modules
- The Linux standard kernel modules for UC-8550 Linux kernel image.
+ The Linux standard kernel modules for UC-8540 Linux kernel image.
  This package contains all kernel modules for ls102xa CIP Linux 4.4.
 
 Package: uc8580-kernel
