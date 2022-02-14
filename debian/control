@@ -63,9 +63,9 @@ Package: uc8410a-modules
 Architecture: armhf
 Depends: ${misc:Depends},
          kmod
-Conflicts: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa
-Replaces: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa
-Provides: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa
+Conflicts: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa, moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa
+Replaces: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa, moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa
+Provides: cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa, moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa
 Description: ls102xa standard kernel modules
  The Linux standard kernel modules for UC-8410A Linux kernel image.
  This package contains all kernel modules for ls102xa CIP Linux 4.4.
