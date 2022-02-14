@@ -1,3 +1,26 @@
+ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa8+deb9) stretch; urgency=medium
+
+  [Added]
+  * Install new device tree on UC-8100 series.
+  * Add UC-8100 new device tree for new hardware with ICPLUS PHY.
+  * Add UC-3112-LX and UC-3122-LX configurations into its file.
+  * Add am335x-moxa-uc-3112.dts and am335x-moxa-uc-3122.dts files.
+
+  [Changed]
+  * Fix issue of unexpected mmcblk index when boot from SD
+  for AM335X.
+  * Fixed UART port number for UC-8100-ME.
+  * Provide cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa from uc8580-modules.
+  * Provide cryptodev-linux-4.4.0-cip-rt-moxa-ls102xa from uc8540-modules.
+  * Provide moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa from
+    uc8410a-modules.
+  * Provide moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa from
+    uc8580-modules.
+  * Provide moxa-nport-real-tty-driver-4.4.0-cip-rt-moxa-ls102xa from
+    uc8540-modules.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Mon, 14 Feb 2022 15:43:18 +0800
+
 ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa6+deb9u1) stretch; urgency=medium
 
   [Fixed]
