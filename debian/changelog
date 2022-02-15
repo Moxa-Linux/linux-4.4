@@ -1,3 +1,18 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa8+deb9) stretch; urgency=medium
+
+  [Added]
+  * Install new device tree on UC-8100 series.
+  * Add UC-8100 new device tree for new hardware with ICPLUS PHY.
+  * Add UC-3112-LX and UC-3122-LX configurations into its file.
+  * Add am335x-moxa-uc-3112.dts and am335x-moxa-uc-3122.dts files.
+
+  [Changed]
+  * Set mmcblk device name index fixed for AM335X.
+  * Fix issue of unexpected mmcblk index when boot from SD for AM335X.
+  * Fixed UART port number for UC-8100-ME.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Tue, 15 Feb 2022 10:51:59 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa5+deb9) stretch; urgency=medium
 
   [Added]
