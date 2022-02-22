@@ -1,3 +1,14 @@
+ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa11+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add QUAL_READ support for s25fl164k.
+
+  [Changed]
+  * Fix hci_uart kernel panic during unregistering & writing
+  * Fix boot from USB storage issue on am335x (sdap1)
+
+ -- Remus Wu <remusty.wu@moxa.com>  Tue, 22 Feb 2022 16:22:54 +0800
+
 ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa8+deb9) stretch; urgency=medium
 
   [Added]
