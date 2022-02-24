@@ -12,7 +12,9 @@ KERNEL_ITB := $(SOC)-moxa-uc-2100 \
 include configs/common.mk
 
 UC2100_DTB	:= $(SOC)-moxa-uc-2101 \
+		   $(SOC)-moxa-uc-2101-v1.1 \
 		   $(SOC)-moxa-uc-2102 \
+		   $(SOC)-moxa-uc-2102-v1.1 \
 		   $(SOC)-moxa-uc-2104 \
 		   $(SOC)-moxa-uc-2111 \
 		   $(SOC)-moxa-uc-2111-v1.1 \
