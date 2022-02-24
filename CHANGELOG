@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa12] - 2022-02-23
+### Fixed
+* Fix cpufreq policy not work issue on uc-3100 series.
+
 ## [4.4.285-cip63-rt36-moxa11] - 2022-02-22
 ### Fixed
 * Fix root device parsing when boot from USB storage for AM335X.
