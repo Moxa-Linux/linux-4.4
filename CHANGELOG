@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa13] - 2022-02-24
+### Added
+* Add UC-2111/UC-2112 new device tree for new hardware with ICPLUS PHY.
+* Add UC-2101/UC-2102 new device tree for new hardware with ICPLUS PHY.
+
 ## [4.4.285-cip63-rt36-moxa12] - 2022-02-23
 ### Fixed
 * Fix cpufreq policy not work issue on uc-3100 series.
