@@ -1,3 +1,10 @@
+am335x-linux-4.4 (4.4.285-cip63-rt36-moxa13+deb9) stretch; urgency=medium
+
+  [Changed]
+  * Add UC-2100 new device tree for new hardware with ICPLUS PHY.
+
+ -- TungYu TY Yang <TungyuTY.Yang@moxa.com>  Thu, 24 Feb 2022 16:28:24 +0800
+
 am335x-linux-4.4 (4.4.285-cip63-rt36-moxa12+deb9) stretch; urgency=medium
 
   [Changed]
