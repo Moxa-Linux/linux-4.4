@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa14] - 2022-03-30
+### Fixed
+* Duo to usdhc1 in our hardware design only support 3.3V on SD bus, so set configuration
+  'no-1-8-v'. This change will affect UC-8200 series device.
+
 ## [4.4.285-cip63-rt36-moxa13] - 2022-02-24
 ### Added
 * Add UC-2111/UC-2112 new device tree for new hardware with ICPLUS PHY.
