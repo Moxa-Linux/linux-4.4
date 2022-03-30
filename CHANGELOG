@@ -6,6 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa14] - 2022-03-30
+### Fixed
+* Duo to usdhc1 in our hardware design only support 3.3V on SD bus, so set configuration
+  'no-1-8-v'. This change will affect UC-8200 series device.
+
+## [4.4.285-cip63-rt36-moxa13] - 2022-02-24
+### Added
+* Add UC-2111/UC-2112 new device tree for new hardware with ICPLUS PHY.
+* Add UC-2101/UC-2102 new device tree for new hardware with ICPLUS PHY.
+
+## [4.4.285-cip63-rt36-moxa12] - 2022-02-23
+### Fixed
+* Fix cpufreq policy not work issue on uc-3100 series.
+
+## [4.4.285-cip63-rt36-moxa11] - 2022-02-22
+### Fixed
+* Fix root device parsing when boot from USB storage for AM335X.
+
+## [4.4.285-cip63-rt36-moxa10] - 2022-02-22
+### Added
+* Add QUAL_READ support for s25fl164k.
+
+## [4.4.285-cip63-rt36-moxa9] - 2022-02-17
+### Changed
+* Fixed hci_uart null pointer dereference problem in uc3100 series.
+
 ## [4.4.285-cip63-rt36-moxa8] - 2022-01-28
 ### Added
 * Add UC-3112-LX and UC-3122-LX configurations into its file.
