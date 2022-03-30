@@ -4,8 +4,10 @@ default: build_itb build_modules build_headers build_kbuild
 
 # Prepare kernel information
 prepare:
+ifeq (,$(wildcard .config))
 	@$(MAKE) M=scripts clean
 	@$(MAKE) $(KERNEL_DEFCONFIG)
+endif
 	@$(MAKE) $@
 	@$(MAKE) M=scripts
 
