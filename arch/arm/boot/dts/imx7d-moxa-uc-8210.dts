@@ -397,10 +397,7 @@
 	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
 	cd-gpios = <&gpio5 0 GPIO_ACTIVE_LOW>;
 	wp-gpios = <&gpio5 1 GPIO_ACTIVE_HIGH>;
-	wakeup-source;
 	vmmc-supply = <&reg_sd1_vmmc>;
-	enable-sdio-wakeup;
-	keep-power-in-suspend;
 	status = "okay";
 };
 
