@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa15] - 2022-03-31
+### Added
+* Add Quectel QMI WWAN driver V1.1.2 provided by Quectel.
+
+### Changed
+* Enable Quectel QMI driver as a module for am335x, imx7d, ls102xa
+* Make QMI WWAN driver for Quectel modules as an independent driver
+  due to the issue that DHCP not working under "802-3" data format.
+* Remove QMI WWAN driver's support for Quectel modules to avoid
+  driver conflict.
+
+## [4.4.285-cip63-rt36-moxa14] - 2022-03-30
+### Fixed
+* Duo to usdhc1 in our hardware design only support 3.3V on SD bus, so set
+  configuration 'no-1-8-v'. This change will affect UC-8200 series device.
+
 ## [4.4.285-cip63-rt36-moxa13] - 2022-02-24
 ### Added
 * Add UC-2111/UC-2112 new device tree for new hardware with ICPLUS PHY.
