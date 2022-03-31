@@ -1,3 +1,28 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa15+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add UC-2111/UC-2112 new device tree for new hardware with ICPLUS PHY.
+  * Add UC-2101/UC-2102 new device tree for new hardware with ICPLUS PHY.
+  * Add QUAL_READ support for s25fl164k.
+  * Add Quectel QMI WWAN driver V1.1.2 provided by Quectel.
+
+  [Changed]
+  * Fixed hci_uart null pointer dereference problem in uc3100 series.
+  * Enable Quectel QMI driver as a module for am335x, imx7d, ls102xa
+  * Make QMI WWAN driver for Quectel modules as an independent driver
+    due to the issue that DHCP not working under "802-3" data format.
+  * Remove QMI WWAN driver's support for Quectel modules to avoid
+    driver conflict.
+
+  [Fixed]
+  * Fix cpufreq policy not work issue on uc-3100 series.
+  * Fix root device parsing when boot from USB storage for AM335X.
+  * Duo to usdhc1 in our hardware design only support 3.3V on SD bus,
+    so set configuration 'no-1-8-v'. This change will affect UC-8200
+    series device.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Thu, 31 Mar 2022 11:37:36 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa8+deb9) stretch; urgency=medium
 
   [Added]
