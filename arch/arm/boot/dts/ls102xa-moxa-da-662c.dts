@@ -47,6 +47,7 @@
 
 /dts-v1/;
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
 #include "ls1021a.dtsi"
 
 / {
@@ -101,6 +102,37 @@
 			gpios = <&gpio4 20 1>;
 			linux,code = <69>;
 			default-state = "on";
+		};
+	};
+
+	gpio-keys-polled {
+		compatible = "gpio-keys-polled";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		poll-interval = <100>;
+
+		select-key {
+			label = "Select Key";
+			linux,code = <KEY_SELECT>;
+			gpios = <&mcpgpio 0 GPIO_OPEN_DRAIN>;
+		};
+
+		menu-key {
+			label = "Menu Key";
+			linux,code = <KEY_MENU>;
+			gpios = <&mcpgpio 1 GPIO_OPEN_DRAIN>;
+		};
+
+		scrolldown-key {
+			label = "Scroll Down Key";
+			linux,code = <KEY_SCROLLDOWN>;
+			gpios = <&mcpgpio 2 GPIO_OPEN_DRAIN>;
+		};
+
+		scrollup-key {
+			label = "Scroll Up Key";
+			linux,code = <KEY_SCROLLUP>;
+			gpios = <&mcpgpio 3 GPIO_OPEN_DRAIN>;
 		};
 	};
 
