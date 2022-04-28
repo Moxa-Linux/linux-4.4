@@ -1,3 +1,16 @@
+ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa18+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add UC-3111-LX-NW device tree file and update UC-3100 series its
+    configuration to support UC-3111-LX-NW model.
+  * Add HD44780 Character LCD driver for ls102xa because of it required by
+    DA-662C series device.
+  * Add Character LCD driver for ls102xa because of it required by DA-662C
+    series device.
+  * Add auxdisplay and keypad node to DA-662C device tree.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Thu, 28 Apr 2022 14:13:14 +0800
+
 ls102xa-linux-4.4 (4.4.285-cip63-rt36-moxa16+deb9) stretch; urgency=medium
 
   [Added]
