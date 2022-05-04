@@ -7,7 +7,8 @@ SOC        := am335x
 KERNEL_ITB := $(SOC)-moxa-uc-2100 \
 	      $(SOC)-moxa-uc-3100 \
 	      $(SOC)-moxa-uc-5100 \
-	      $(SOC)-moxa-uc-8100a-me
+	      $(SOC)-moxa-uc-8100a-me \
+	      $(SOC)-moxa-vg-100
 
 include configs/common.mk
 
@@ -34,10 +35,12 @@ UC8100_DTB	:= $(SOC)-moxa-uc-8100 \
 		   moxa-uc8100
 UC8100_ME_DTB	:= $(SOC)-moxa-uc-8100-me
 UC8100A_ME_DTB	:= $(SOC)-moxa-uc-8100a-me
+VG100_DTB	:= $(SOC)-moxa-vg-101
 
 KERNEL_DTBS 	:= $(UC2100_DTB) \
 		   $(UC3100_DTB) \
 		   $(UC5100_DTB) \
 		   $(UC8100_DTB) \
 		   $(UC8100_ME_DTB) \
-		   $(UC8100A_ME_DTB)
+		   $(UC8100A_ME_DTB) \
+		   $(VG100_DTB)
