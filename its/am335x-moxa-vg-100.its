@@ -1,0 +1,40 @@
+/*
+ * U-Boot itb image source file for "vg100 project"
+ */
+
+/dts-v1/;
+
+/ {
+	description = "U-Boot itb image source file for vg100 project";
+	#address-cells = <1>;
+	
+	images {
+		kernel@vg100 {
+			description = "Moxa VG100 Series Unify Linux Kernel";
+			data = /incbin/("../arch/arm/boot/zImage");
+			type = "kernel";
+			arch = "arm";
+			os = "linux";
+			compression = "none";
+			load = <0x80080000>;
+			entry = <0x80080000>;
+		};
+		fdt@vg101 {
+			description = "Flattened Device Tree blob for vg101";
+			data = /incbin/("../arch/arm/boot/dts/am335x-moxa-vg-101.dtb");
+			type = "flat_dt";
+			arch = "arm";
+			compression = "none";
+			load = <0x80000000>;
+		};
+	};
+	
+	configurations {
+		default = "vg101";
+		vg101 {
+			description = "Boot Linux kernel with vg101 FDT blob";
+			kernel = "kernel@vg100";
+			fdt = "fdt@vg101";
+		};
+	};
+};
