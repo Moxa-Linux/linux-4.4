@@ -83,56 +83,32 @@
 	leds {
 		compatible = "gpio-leds";
 		led@1 {
-			label = "UC3100:GREEN:SYS";
+			label = "VG100:GREEN:SYS";
 			gpios = <&gpio_xten 7 0>;
 			default-state = "off";
 		};
 
 		led@2 {
-			label = "UC3100:GREEN:CEL";
+			label = "VG100:GREEN:CEL";
 			gpios = <&gpio_xten 8 1>;
 			default-state = "off";
 		};
 
 		led@3 {
-			label = "UC3100:GREEN:SGN2-1";
+			label = "VG100:GREEN:SGN2-1";
 			gpios = <&gpio_xten 9 1>;
 			default-state = "off";
 		};
 
 		led@4 {
-			label = "UC3100:GREEN:SGN2-2";
+			label = "VG100:GREEN:SGN2-2";
 			gpios = <&gpio_xten 10 1>;
 			default-state = "off";
 		};
 
 		led@5 {
-			label = "UC3100:GREEN:SGN2-3";
+			label = "VG100:GREEN:SGN2-3";
 			gpios = <&gpio_xten 11 1>;
-			default-state = "off";
-		};
-
-		led@6 {
-			label = "UC3100:GREEN:WIFI";
-			gpios = <&gpio_xten 12 1>;
-			default-state = "off";
-		};
-
-		led@7 {
-			label = "UC3100:GREEN:SGN1-1";
-			gpios = <&gpio_xten 13 1>;
-			default-state = "off";
-		};
-
-		led@8 {
-			label = "UC3100:GREEN:SGN1-2";
-			gpios = <&gpio_xten 14 1>;
-			default-state = "off";
-		};
-
-		led@9 {
-			label = "UC3100:GREEN:SGN1-3";
-			gpios = <&gpio_xten 15 1>;
 			default-state = "off";
 		};
 	};
