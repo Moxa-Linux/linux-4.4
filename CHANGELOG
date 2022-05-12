@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa19] - 2022-05-11
+### Added
+* Add its, dts, defconfig for new model: VG-100 series
+
 ## [4.4.285-cip63-rt36-moxa18] - 2022-04-27
 ### Added
 * Add HD44780 Character LCD driver for ls102xa because of it required by
