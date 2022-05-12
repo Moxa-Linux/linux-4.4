@@ -46,6 +46,8 @@
  */
 
 /dts-v1/;
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
 #include "ls1021a.dtsi"
 
 / {
@@ -102,6 +104,51 @@
 			default-state = "on";
 		};
 	};
+
+	gpio-keys-polled {
+		compatible = "gpio-keys-polled";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		poll-interval = <100>;
+
+		select-key {
+			label = "Select Key";
+			linux,code = <KEY_SELECT>;
+			gpios = <&mcpgpio 0 GPIO_OPEN_DRAIN>;
+		};
+
+		menu-key {
+			label = "Menu Key";
+			linux,code = <KEY_MENU>;
+			gpios = <&mcpgpio 1 GPIO_OPEN_DRAIN>;
+		};
+
+		scrolldown-key {
+			label = "Scroll Down Key";
+			linux,code = <KEY_SCROLLDOWN>;
+			gpios = <&mcpgpio 2 GPIO_OPEN_DRAIN>;
+		};
+
+		scrollup-key {
+			label = "Scroll Up Key";
+			linux,code = <KEY_SCROLLUP>;
+			gpios = <&mcpgpio 3 GPIO_OPEN_DRAIN>;
+		};
+	};
+
+	auxdisplay {
+		compatible = "hit,hd44780";
+		backlight-gpios = <&mcpgpio 8 GPIO_ACTIVE_LOW>;
+		data-gpios = <&mcpgpio 9 GPIO_ACTIVE_HIGH>,
+			     <&mcpgpio 10 GPIO_ACTIVE_HIGH>,
+			     <&mcpgpio 11 GPIO_ACTIVE_HIGH>,
+			     <&mcpgpio 12 GPIO_ACTIVE_HIGH>;
+		enable-gpios = <&mcpgpio 13 GPIO_ACTIVE_HIGH>;
+		rw-gpios = <&mcpgpio 14 GPIO_ACTIVE_HIGH>;
+		rs-gpios = <&mcpgpio 15 GPIO_ACTIVE_HIGH>;
+		display-height-chars = <2>;
+		display-width-chars = <16>;
+	};
 };
 
 &dspi0 {
@@ -151,8 +198,8 @@
 
 &i2c1 {
 	status = "okay";
-	
-	gpio@20 {
+
+	mcpgpio: gpio@20 {
 		compatible = "microchip,mcp23017";
 		gpio-controller;
 		#gpio-cells = <2>;
