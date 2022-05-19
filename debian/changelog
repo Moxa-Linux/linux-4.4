@@ -1,3 +1,11 @@
+am335x-linux-4.4 (4.4.285-cip63-rt36-moxa19+deb9) stretch; urgency=medium
+
+  [Added]
+  * Add its, dts, defconfig for new model: VG-100 series
+  * Add new maintainer scripts for VG-100 series
+
+ -- Sin-Ru Lu <ChrisSR_Lu@moxa.com>  Thu, 12 May 2022 16:48:16 +0800
+
 am335x-linux-4.4 (4.4.285-cip63-rt36-moxa17+deb9) stretch; urgency=medium
 
   [Added]
