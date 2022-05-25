@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa20] - 2022-05-25
+### Fixed
+* Configure bus-width as 4 bits and adjust the clock rate to HS200 to
+  avoid usdhc host tuning issue on i.mx7d platform.
+
 ## [4.4.285-cip63-rt36-moxa19] - 2022-05-11
 ### Added
 * Add its, dts, defconfig for new model: VG-100 series
