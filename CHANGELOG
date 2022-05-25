@@ -6,6 +6,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa20] - 2022-05-25
+### Fixed
+* Configure bus-width as 4 bits and adjust the clock rate to HS200 to
+  avoid usdhc host tuning issue on i.mx7d platform.
+
+## [4.4.285-cip63-rt36-moxa19] - 2022-05-11
+### Added
+* Add its, dts, defconfig for new model: VG-100 series
+
+## [4.4.285-cip63-rt36-moxa18] - 2022-04-27
+### Added
+* Add HD44780 Character LCD driver for ls102xa because of it required by
+  DA-662C series device.
+* Add Character LCD driver for ls102xa because of it required by DA-662C
+  series device.
+* Add auxdisplay and keypad node to DA-662C device tree.
+
+## [4.4.285-cip63-rt36-moxa17] - 2022-04-26
+### Added
+* Add UC-3111-LX-NW device tree file and update UC-3100 series its
+  configuration to support UC-3111-LX-NW model.
+
+## [4.4.285-cip63-rt36-moxa16] - 2022-04-13
+### Added
+* Add RTC ISL1208 driver for ls102xa because of it required by UC-8580
+  series device.
+
 ## [4.4.285-cip63-rt36-moxa15] - 2022-03-31
 ### Added
 * Add Quectel QMI WWAN driver V1.1.2 provided by Quectel.
