@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa21] - 2022-06-06
+### Fixed
+* Do not use CMD13 to get status after speed mode switch, duo to CMD13
+  cannot be guaranteed due to the asynchronous operation.
+* Revert bus-width and clock rate configuration on i.MX7 platform, because
+  it looks not work on some devices.
+
 ## [4.4.285-cip63-rt36-moxa20] - 2022-05-25
 ### Fixed
 * Configure bus-width as 4 bits and adjust the clock rate to HS200 to
