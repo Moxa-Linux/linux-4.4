@@ -1,3 +1,13 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa21+deb9) stretch; urgency=medium
+
+  [Fixed]
+  * Revert bus-width and clock rate configuration on i.MX7 platform, because
+    it looks not work on some devices.
+  * Do not use CMD13 to get status after speed mode switch, duo to CMD13
+    cannot be guaranteed due to the asynchronous operation.
+
+ -- Remus Wu <remusty.wu@moxa.com>  Mon, 06 Jun 2022 15:53:16 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa20+deb9) stretch; urgency=medium
 
   [Added]
