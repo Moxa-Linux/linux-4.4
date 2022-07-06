@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa22] - 2022-07-06
+### Fixed
+* Un-revert bus-width and clock rate configuration on i.MX7 platform, because
+  the emmc host is more stable at HS200 speed.
+
 ## [4.4.285-cip63-rt36-moxa21] - 2022-06-06
 ### Fixed
 * Do not use CMD13 to get status after speed mode switch, duo to CMD13
