@@ -1,3 +1,12 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa22+deb9) stretch; urgency=medium
+
+  [Fixed]
+  * Un-Revert bus-width and clock rate configuration on i.MX7 platform,
+    because the emmc host is more stable and has better a response time in
+    HS200 and 4-bit bus width mode.
+
+ -- SeanHC Lin <SeanHC.Lin@moxa.com>  Thu, 07 Jul 2022 09:54:37 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa21+deb9) stretch; urgency=medium
 
   [Fixed]
