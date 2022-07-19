@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa23] - 2022-07-19
+### Fixed
+* Use polling instead of waiting for a sufficient delay to reduce the latency
+  of the hs400_to_hs200() function.
+
 ## [4.4.285-cip63-rt36-moxa22] - 2022-07-06
 ### Fixed
 * Un-revert bus-width and clock rate configuration on i.MX7 platform, because
