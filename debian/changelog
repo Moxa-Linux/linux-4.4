@@ -1,3 +1,12 @@
+imx7-linux-4.4 (4.4.285-cip63-rt36-moxa23+deb9) stretch; urgency=medium
+
+  [Fixed]
+  * Use polling instead of waiting for a sufficient delay to reduce the
+    latency of the hs400_to_hs200() function and resolve the unbootable
+    issue on some devices.
+
+ -- SeanHC Lin <SeanHC.Lin@moxa.com>  Tue, 19 Jul 2022 05:01:23 +0800
+
 imx7-linux-4.4 (4.4.285-cip63-rt36-moxa22+deb9) stretch; urgency=medium
 
   [Fixed]
