@@ -10,7 +10,7 @@ install)
 # Assume that "upgrade" always called on physical target machine
 upgrade)
 	if cat /proc/cmdline | grep -q "mmcblk"; then
-		ITB_NAME="am335x-moxa-vg-100.itb"
+		ITB_NAME="am335x-moxa-aig-100.itb"
 		OVERLAY_BASE="/overlayfs/base"
 		P1_TMP="/var/tmp/p1"
 		ROOT_PART="$(cat /proc/cmdline | sed -e 's/^.*root=//' -e 's/ .*$//')"
