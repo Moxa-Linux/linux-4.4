@@ -1,3 +1,11 @@
+am335x-linux-4.4 (4.4.285-cip63-rt36-moxa24+deb9) stretch; urgency=medium
+
+  [Changed]
+  * Rename vg-100 to aig-100 for all its, dts, config
+  * debian: rename maintainer script from vg to aig
+
+ -- Sin-Ru Lu <ChrisSR_Lu@moxa.com>  Thu, 11 Aug 2022 18:17:20 +0800
+
 am335x-linux-4.4 (4.4.285-cip63-rt36-moxa19+deb9) stretch; urgency=medium
 
   [Added]
