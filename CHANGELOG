@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.285-cip63-rt36-moxa24] - 2022-07-04
+### Changed
+* Rename vg-100 to aig-100 for all its, dts, config
+
 ## [4.4.285-cip63-rt36-moxa23] - 2022-07-19
 ### Fixed
 * Use polling instead of waiting for a sufficient delay to reduce the latency

@@ -11,8 +11,8 @@
 #include "am33xx.dtsi"
 
 / {
-	model = "Moxa VG-101";
-	compatible = "moxa,vg-101", "ti,am33xx";
+	model = "Moxa AIG-101";
+	compatible = "moxa,aig-101", "ti,am33xx";
 
 	cpus {
 		cpu@0 {
@@ -83,31 +83,31 @@
 	leds {
 		compatible = "gpio-leds";
 		led@1 {
-			label = "VG100:GREEN:SYS";
+			label = "AIG100:GREEN:SYS";
 			gpios = <&gpio_xten 7 0>;
 			default-state = "off";
 		};
 
 		led@2 {
-			label = "VG100:GREEN:CEL";
+			label = "AIG100:GREEN:CEL";
 			gpios = <&gpio_xten 8 1>;
 			default-state = "off";
 		};
 
 		led@3 {
-			label = "VG100:GREEN:SGN2-1";
+			label = "AIG100:GREEN:SGN2-1";
 			gpios = <&gpio_xten 9 1>;
 			default-state = "off";
 		};
 
 		led@4 {
-			label = "VG100:GREEN:SGN2-2";
+			label = "AIG100:GREEN:SGN2-2";
 			gpios = <&gpio_xten 10 1>;
 			default-state = "off";
 		};
 
 		led@5 {
-			label = "VG100:GREEN:SGN2-3";
+			label = "AIG100:GREEN:SGN2-3";
 			gpios = <&gpio_xten 11 1>;
 			default-state = "off";
 		};
