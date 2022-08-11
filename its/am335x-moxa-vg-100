@@ -1,4 +1,0 @@
-#!/bin/bash
-
-make dtbs
-mkimage -f its/am335x-moxa-vg-100.its its/am335x-moxa-vg-100.itb
