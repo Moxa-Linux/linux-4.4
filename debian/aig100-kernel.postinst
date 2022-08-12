@@ -4,7 +4,7 @@ set -e
 
 case "$1" in
 configure)
-	ITB_NAME="am335x-moxa-vg-100.itb"
+	ITB_NAME="am335x-moxa-aig-100.itb"
 	OVERLAY_BASE="/overlayfs/base"
 	P1_TMP="/var/tmp/p1"
 

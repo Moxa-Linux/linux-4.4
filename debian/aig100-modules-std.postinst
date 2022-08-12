@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for vg100-modules-std
+# postinst script for aig100-modules-std
 #
 # see: dh_installdeb(1)
 
