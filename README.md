@@ -1,71 +1,104 @@
-# Building Moxa Linux Kernel linux-4.4 for Products with LS102xA SoC
+# Moxa Linux 4.4 Kernel for Products with LS102xA SoC
 
-Below you will find instructions to build and install the linux-4.4 for Products with LS102xA SoC.
+*This branch* (4.4.285-cip63-rt36/stretch-ls102xa/master) is used to build linux 4.4 kernel for Moxa Products with LS102xA SoC.
+* [UC-8410A Series](https://github.com/Moxa-Linux/ProductList#uc-8410a-series)
+* [UC-8540 Series](https://github.com/Moxa-Linux/ProductList#uc-8540-series)
+* [UC-8580 Series](https://github.com/Moxa-Linux/ProductList#uc-8580-series)
+
+For more information of products, refer to [Moxa Products List](https://github.com/Moxa-Linux/ProductList).
 
 ## Version Tags, Branch and Kernel Sourece Table
 
-| Tags | Branch | Kernel Sourece |
-| ---- | ------ | -------------- |
-| UC-8410A_V4.1.2 | [4.4.285-cip63-rt36/stretch-ls102xa/master](https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-ls102xa/master) | [linux-4.4](https://github.com/Moxa-Linux/linux-4.4/) (*This repository*) (`Latest`) |
-| UC-8410A_V3.2   | [4.4.201-cip39-rt26/jessie/master](https://github.com/Moxa-Linux/ls1021a-linux-4.4/tree/4.4.201-cip39-rt26/jessie/master) | [ls1021a-linux-4.4](https://github.com/Moxa-Linux/ls1021a-linux-4.4) (`Outdated`) |
+| Tags | Branch | Kernel Sourece | State |
+| ---- | ------ | -------------- | ----- |
+| UC-8410A_V4.1.2<br>UC-8540_V2.1<br>UC-8580_V2.1 | [4.4.285-cip63-rt36/stretch-ls102xa/master](https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-ls102xa/master) (*This branch*) | [linux-4.4](https://github.com/Moxa-Linux/linux-4.4/) (*This repository*) | `Latest` |
+| UC-8410A_V3.2   | [4.4.201-cip39-rt26/jessie/master](https://github.com/Moxa-Linux/ls1021a-linux-4.4/tree/4.4.201-cip39-rt26/jessie/master) | [ls1021a-linux-4.4](https://github.com/Moxa-Linux/ls1021a-linux-4.4) | `Outdated` |
 
-## Download source
+## Moxa Linux 4.4 Kernel Building Flow
 
-To obtain the ls012xa-linux-4.4 sources you must clone them as below:
+The following steps are the building flow of kernel for Moxa Products using LS102xA SoC.
+
+### Install qemu
+
+Install qemu related packages for the cross-build process:
 
 ```
+apt-get install qemu-user-static
+```
+
+### Download Source
+
+Get the kernel sources by `git clone`:
+
+```
+mkdir workspace
+cd workspace
 git clone https://github.com/Moxa-Linux/linux-4.4.git
 ```
 
-## Dependencies
+We provide two way for user to build kernel package.
 
-To build linux-4.4, we provide [moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) to create build environment.
+### Way One (*recommend*)
 
+It is done by `docker-compose` command.
 
-## Building
+```
+cd linux-4.4
+docker-compose up
+```
 
-### Create docker container
+`.deb` files show in `workspace` directory when the building process is done.
 
-To create a docker container execute the following commands from the directory which source in:
+### Way Two
+
+* Prepare Building Environment
+
+  We provide [moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) for building environment.<br>
+  You can follow steps in the repository to prepare your environment.
+
+* Create docker container
+
+  Kernel is compiled in the docker container.<br>
+  Here is the command to create the docker container that is needed by us.
 
 ```
 # sudo docker run -d -it -v ${PWD}:/workspace moxa-package-builder:1.0.0 bash
 d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
 ```
 
-After execute commands, you will get a string like `d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6` which called `<container_id>` and we will use it in next step.
+  After executing, Container ID (`d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6`) would show on terminal.
 
-### Build kernel package
+* Build kernel package
 
-To build kernel package execute the following commands:
+  Kernel is packed in debian package.<br>
+  Here are commands to start docker container and build kernel package:
 
 ```
-# docker start -ia <container_id>
+# docker start -ia <Container ID>
 # cd /workspace/linux-4.4
 # git checkout 4.4.285-cip63-rt36/stretch-ls102xa/master
 # apt-get build-dep -aarmhf .
 # dpkg-buildpackage -us -uc -b -aarmhf
 ```
 
-Once build process complete, you can find `.deb` files under `/workspace` directory.
+`.deb` files show in `workspace` directory when the building process is done.
 
-## Updating
+### Upgrade kernel
 
-After build the kernel packages, now you can update your device.
+You can upgrade kernel through the kernel package.<br>
+Here are steps to upgrade `UC-8410A` series kernel.
 
-Below are instructions to update the kernel packages on `UC-8410A`.
+* Upload the kernel package
 
-### Upload the kernel packages to the device
-
-To upload kernel package to the device execute the following commands:
+  Kernel packages can be uploaded to device by the command:
 
 ```
 # scp uc8410a-kernel*.deb uc8410a-modules*.deb moxa@192.168.3.127:/tmp
 ```
 
-### Install the kernel packages
+* Install the kernel packages
 
-To install kernel package to the device execute the following commands:
+  Kernel packages can be installed on device by the commands:
 
 ```
 # cd /tmp
