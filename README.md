@@ -1,77 +1,113 @@
-# Build Moxa Linux Kernel linux-4.4 for Products with AM335x SoC
+# Moxa Linux 4.4 Kernel for Products with AM335x SoC
 
-Below you will find instructions to build and install the linux-4.4 kernel for Products with AM335x SoC.
+*This branch* (4.4.285-cip63-rt36/stretch-am335x/master) is used to build linux 4.4 kernel for Moxa Products with AM335x SoC.
+* [UC-2100 Series](https://github.com/Moxa-Linux/ProductList#uc-2100-series)
+* [UC-3100 Series](https://github.com/Moxa-Linux/ProductList#uc-3100-series)
+* [UC-5100 Series](https://github.com/Moxa-Linux/ProductList#uc-5100-series)
+* [UC-8100A-ME Series](https://github.com/Moxa-Linux/ProductList#uc-8100a-me-series)
+* [UC-8100 Series](https://github.com/Moxa-Linux/ProductList#uc-8100-series)
+* [UC-8100-ME Series](https://github.com/Moxa-Linux/ProductList#uc-8100-me-series)
 
-## Version Tags, Branch, Kernel Sourece Table
+For more information of products, refer to [Moxa Products List](https://github.com/Moxa-Linux/ProductList).
 
-| Tags | Branch | Kernel Sourece | Note |
-| ---- | ------ | -------------- | ---- |
-| UC-2100_V1.11<br>UC-2100_V1.12<br>UC-3100_V1.5<br>UC-5100_V1.4<br>UC-3100_V1.6<br>UC-8100_V3.5<br>UC-8100-ME_V3.1<br>UC-8100A-ME_V1.6 | [4.4.285-cip63-rt36/stretch-am335x/master](https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-am335x/master) | [linux-4.4](https://github.com/Moxa-Linux/linux-4.4/) (*This repository*) (`Latest`) | |
-| UC-2100_V1.6<br>UC-3100_V1.2<br>UC-5100_V1.2<br>UC-8100_V3.2 | [4.4.190-cip36-rt25/stretch/master](https://github.com/Moxa-Linux/am335x-linux-4.4/tree/4.4.190-cip36-rt25/stretch/master) | [am335x-linux-4.4](https://github.com/Moxa-Linux/am335x-linux-4.4) (`Outdated`) | |
-| UC-3100_V1.0<br>UC-3100_V1.1<br>UC-5100_V1.0<br>UC-5100_V1.1<br>UC-8100_V3.0<br>UC-8100_V3.1<br>UC-2100_V1.2<br>UC-2100_V1.3<br>UC-2100_V1.4<br>UC-2100_V1.5<br>UC-8100-ME_V3.0<br>UC-8100A-ME_V1.0<br>UC-8100A-ME_V1.1<br>UC-8100A-ME_V1.2<br>UC-8100A-ME_V1.3 | [4.4.190-cip36-rt25/stretch/master](https://github.com/Moxa-Linux/am335x-linux-4.4/tree/4.4.190-cip36-rt25/stretch/master) | [am335x-linux-4.4](https://github.com/Moxa-Linux/am335x-linux-4.4) (`Outdated`) | [Past Instructions](https://github.com/Moxa-Linux/am335x-linux-4.4/tree/4.4.190-cip36-rt25/stretch/master/OLD_GUIDELINE.md) |
+## Version Tags, Branch and Kernel Sourece Table
 
-## Download source
+| Tags | Branch | Kernel Sourece | State |
+| ---- | ------ | -------------- | ----- |
+| UC-2100_V1.11<br>UC-2100_V1.12<br>UC-3100_V1.5<br>UC-5100_V1.4<br>UC-3100_V1.6<br>UC-8100_V3.5<br>UC-8100-ME_V3.1<br>UC-8100A-ME_V1.6 | [4.4.285-cip63-rt36/stretch-am335x/master](https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-am335x/master) (*This branch*) | [linux-4.4](https://github.com/Moxa-Linux/linux-4.4/) (*This repository*) | `Latest` |
+| UC-2100_V1.6<br>UC-3100_V1.2<br>UC-5100_V1.2<br>UC-8100_V3.2 | [4.4.190-cip36-rt25/stretch/master](https://github.com/Moxa-Linux/am335x-linux-4.4/tree/4.4.190-cip36-rt25/stretch/master) | [am335x-linux-4.4](https://github.com/Moxa-Linux/am335x-linux-4.4) | `Outdated` |
+| UC-3100_V1.0<br>UC-3100_V1.1<br>UC-5100_V1.0<br>UC-5100_V1.1<br>UC-8100_V3.0<br>UC-8100_V3.1<br>UC-2100_V1.2<br>UC-2100_V1.3<br>UC-2100_V1.4<br>UC-2100_V1.5<br>UC-8100-ME_V3.0<br>UC-8100A-ME_V1.0<br>UC-8100A-ME_V1.1<br>UC-8100A-ME_V1.2<br>UC-8100A-ME_V1.3 | [4.4.190-cip36-rt25/stretch/master](https://github.com/Moxa-Linux/am335x-linux-4.4/tree/4.4.190-cip36-rt25/stretch/master) | [am335x-linux-4.4](https://github.com/Moxa-Linux/am335x-linux-4.4) | `Outdated` |
 
-To obtain the linux-4.4 sources you must clone them as below:
+## Moxa Linux 4.4 Kernel Building Flow
+
+The following steps are the building flow of kernel for Moxa Products using AM335x SoC.
+
+### Install qemu
+
+Install qemu related packages for the cross-build process:
+
+```
+apt-get install qemu-user-static
+```
+
+### Download Source
+
+Get the kernel sources by `git clone`:
 
 ```
 git clone https://github.com/Moxa-Linux/linux-4.4.git
 ```
 
-## Dependencies
+We provide two way for user to build kernel package.
 
-To build linux-4.4, we provide [moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) to create build environment.
+### Way One: Build Kernel Package by `docker-compose` (*recommend*)
 
-
-## Building
-
-### Create docker container
-
-To create a docker container execute the following commands from the directory which source in:
+It is done by `docker-compose` command.
 
 ```
-# sudo docker run -d -it -v ${PWD}:/workspace moxa-package-builder:1.0.0 bash
-d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
+cd linux-4.4
+docker-compose up
 ```
 
-After execute commands, you will get a string like `d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6` which called `<container_id>` and we will use it in next step.
+`.deb` files show in `linux-4.4/artifact/` directory when the building process is done.
 
-### Build kernel package
+### Way Two: Build Kernel Package Manually
 
-To build kernel package execute the following commands:
+* Prepare Building Environment
 
-```
-# docker start -ia <container_id>
-# cd /workspace/linux-4.4
-# git checkout 4.4.285-cip63-rt36/stretch-am335x/master
-# apt-get build-dep -aarmhf .
-# dpkg-buildpackage -us -uc -b -aarmhf
-```
+  We provide [moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) for building environment.<br>
+  You can follow steps in the repository to prepare your environment.
 
-Once build process complete, you can find `.deb` files under `/workspace` directory.
+* Create docker container
 
-## Updating
+  Kernel is compiled in the docker container.<br>
+  Here is the command to create the docker container that is needed by us.
 
-After build the kernel packages, now you can update your device.
+  ```
+  # sudo docker run -d -it -v ${PWD}:/linux-4.4 moxa-package-builder:1.0.0 bash
+  d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
+  ```
 
-Below are instructions to update the kernel packages on `UC-5100`.
+  After executing, Container ID (`d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6`) would show on terminal.
 
-### Upload the kernel packages to the device
+* Build kernel package
 
-To upload kernel package to the device execute the following commands:
+  Kernel is packed in debian package.<br>
+  Here are commands to start docker container and build kernel package:
 
-```
-# scp uc5100-kernel*.deb uc5100-modules*.deb moxa@192.168.3.127:/tmp
-```
+  ```
+  # docker start -ia <Container ID>
+  # cd /linux-4.4
+  # git checkout 4.4.285-cip63-rt36/stretch-am335x/master
+  # apt-get build-dep -aarmhf .
+  # dpkg-buildpackage -us -uc -b -aarmhf
+  # mkdir -p /linux-4.4/artifact
+  # mv /*.deb /linux-4.4/artifact/.
+  ```
 
-### Install the kernel packages
+  `.deb` files show in `linux-4.4/artifact/` directory when the building process is done.
 
-To install kernel package to the device execute the following commands:
+### Upgrade kernel
 
-```
-# cd /tmp
-# dpkg -i *.deb
-# sync
-```
+You can upgrade kernel through the kernel package.<br>
+Here are steps to upgrade `UC-5100` series kernel.
 
-**NOTE: Remember to reboot the device after install the kernel package!**
+* Upload the kernel package
+
+  Kernel packages can be uploaded to device by the command:
+
+  ```
+  # scp uc5100-kernel*.deb uc5100-modules*.deb moxa@192.168.3.127:/tmp
+  ```
+
+* Install the kernel packages
+
+  Kernel packages can be installed on device by the commands:
+
+  ```
+  # cd /tmp
+  # dpkg -i *.deb
+  # sync
+  ```
+  
+  **NOTE: Remember to reboot the device after install the kernel package!**
