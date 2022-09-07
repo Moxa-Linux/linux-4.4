@@ -1,87 +1,116 @@
-# Build Moxa Linux Kernel linux-4.4 for Products with i.MX 7 SoC
+# Moxa Linux 4.4 Kernel for Products with i.MX 7 SoC
 
-Below you will find instructions to build and install the linux-4.4 kernel for Products with i.MX 7 SoC.
+*This branch* (4.4.285-cip63-rt36/stretch-imx7d/master) is used to build linux 4.4 kernel for Moxa Products with i.MX 7 SoC.
+* [UC-8200 Series](https://github.com/Moxa-Linux/ProductList#uc-8200-series)
+
+For more information of products, refer to [Moxa Products List](https://github.com/Moxa-Linux/ProductList).
 
 ## Version Tags, Branch and Kernel Sourece Table
 
-| Tags | Branch | Kernel Sourece |
-| - | - | - |
-| UC-8200_V1.4<br>UC-8200_V1.5 | [4.4.285-cip63-rt36/stretch-imx7d/master](https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-imx7d/master) | [linux-4.4](https://github.com/Moxa-Linux/linux-4.4/) (*This repository*) (`Lastest`) |
-| UC-8200_V1.0<br>UC-8200_V1.1<br>UC-8200_V1.2 | [4.4.176-cip31-rt23/stretch/master](https://github.com/Moxa-Linux/imx7-linux-4.4/tree/4.4.176-cip31-rt23/stretch/master) | [imx7-linux-4.4](https://github.com/Moxa-Linux/imx7-linux-4.4) (`Outdated`) |
+| Tags | Branch | Kernel Sourece | State |
+| ---- | ------ | -------------- | ----- |
+| UC-8200_V1.4<br>UC-8200_V1.5 | [4.4.285-cip63-rt36/stretch-imx7d/master](https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-imx7d/master) (*This branch*) | [linux-4.4](https://github.com/Moxa-Linux/linux-4.4/) (*This repository*) | `Lastest` |
+| UC-8200_V1.0<br>UC-8200_V1.1<br>UC-8200_V1.2 | [4.4.176-cip31-rt23/stretch/master](https://github.com/Moxa-Linux/imx7-linux-4.4/tree/4.4.176-cip31-rt23/stretch/master) | [imx7-linux-4.4](https://github.com/Moxa-Linux/imx7-linux-4.4) | `Outdated` |
 
-## Download source
+## Moxa Linux 4.4 Kernel Building Flow
 
-To obtain the linux-4.4 sources you must clone them as below:
+The following steps are building flow of kernel for Moxa Products using i.MX 7 SoC.
+
+### Prerequisites
+
+Install `qemu` related packages for the cross-build process:
+
+```
+apt-get install qemu-user-static
+```
+
+### Download Source
+
+Get the kernel sources by `git clone`:
 
 ```
 git clone https://github.com/Moxa-Linux/linux-4.4.git
 ```
 
-## Dependencies
-
-To build linux-4.4, we provide [moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) to create build environment.
-
-## Building
-
-### Create docker container
-
-To create a docker container execute the following commands from the directory which source in:
+Switch to imx7d branch.
 
 ```
-# sudo docker run -d -it -v ${PWD}:/workspace moxa-package-builder:1.0.0 bash
-d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
+cd linux-4.4/
+git checkout 4.4.285-cip63-rt36/stretch-imx7d/master
 ```
 
-After execute commands, you will get a string like `d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6` which called `<container_id>` and we will use it in next step.
+### Build Kernel Package
 
-### Build kernel package
+Two ways are provided to build kernel package.
 
-To build kernel package execute the following commands:
+#### Way One: Build by `docker-compose` (*recommend*)
 
-```
-# docker start -ia <container_id>
-# cd /workspace/linux-4.4
-# git checkout 4.4.285-cip63-rt36/stretch-imx7d/master
-# apt-get build-dep -aarmhf .
-# dpkg-buildpackage -us -uc -b -aarmhf
-```
-
-Once build process complete, you can find `.deb` files under `/workspace` directory.
-
-## Updating
-
-After build the kernel packages, now you can update your device.
-
-Below are instructions to update the kernel packages on `UC-8200`.
-
-### Upload the kernel packages to the device
-
-To upload kernel package to the device execute the following commands:
+Use `docker-compose` command.
 
 ```
-# scp uc8200-kernel*.deb uc8200-modules*.deb moxa@192.168.3.127:/tmp
+cd linux-4.4
+docker-compose up
 ```
 
-### Install the kernel packages
+After the building process is completed, `.deb` files is shown in `linux-4.4/artifact/` directory.
 
-To install kernel package to the device execute the following commands:
+#### Way Two: Build Manually
 
-```
-# cd /tmp
-# dpkg -i *.deb
-# sync
-```
+[moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) is provided for building environment.
+Follow steps to build the docker environment and get the kernel package.
 
-**NOTE: Remember to reboot the device after install the kernel package!**
+1. Build the docker image from Dockerfile
 
-## Appendix
+   ```
+   docker build -t moxa-package-builder:1.0.0 .
+   ```
 
-### Customize kernel configuration
+2. Create docker container
 
-To configure your own kernel config based on moxa's configuration execute the following commands:
+   By docker volumes, current directory is mapped to `/linux-4.4` in docker container.
 
-```
-# export ARCH=arm
-# make imx7d_defconfig
-# make menuconfig
-```
+   ```
+   docker run -d -it -v ${PWD}:/linux-4.4 moxa-package-builder:1.0.0 bash
+   ---
+   d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
+   ```
+
+   After executing the command, Container ID (`d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6`) is shown on terminal.
+
+3. Build kernel package
+
+   Execute commands to start and attach to docker container.
+   Then, pack the kernel into debian packages in docker container.
+
+   ```
+   docker start -ia <Container ID>
+   cd /linux-4.4
+   apt-get build-dep -aarmhf .
+   dpkg-buildpackage -us -uc -b -aarmhf
+   mkdir -p /linux-4.4/artifact
+   mv /*.deb /linux-4.4/artifact/.
+   ```
+
+   After the building process is completed, `.deb` files is shown in `linux-4.4/artifact/` 
+   directory.
+
+### Upgrade kernel
+
+You can upgrade kernel through the kernel package.
+Follow the steps to upgrade `UC-8200` series kernel.
+
+* Upload the kernel package (by `scp`)
+
+  ```
+  scp uc8200-kernel*.deb uc8200-modules*.deb moxa@192.168.3.127:/tmp
+  ```
+
+* Install the kernel packages
+
+  ```
+  cd /tmp
+  dpkg -i *.deb
+  sync
+  ```
+  
+  **NOTE: Remember to reboot the device after install the kernel package!**
