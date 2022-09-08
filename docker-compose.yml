@@ -4,7 +4,7 @@ services:
   moxa-kernel-builder:
     build: .
     volumes:
-      - ./../:/workspace
+      - ./:/linux-4.4
       - /dev:/dev
     privileged: true
-    command: /workspace/linux-4.4/run.sh
+    command: /linux-4.4/run.sh
