@@ -1,10 +1,13 @@
 #!/bin/bash
 
 # Enter repository
-cd /workspace/linux-4.4
+cd /linux-4.4
+
+# Uncomment following part if kernel configuration is tainted
+#make distclean
+#git checkout debian/
 
 # Build kernel package
-git checkout 4.4.285-cip63-rt36/stretch-ls102xa/master
 apt-get build-dep -y -aarmhf .
 dpkg-buildpackage -us -uc -b -aarmhf
 
@@ -15,5 +18,9 @@ else
   echo "Failed to run kernel build."
   exit 1
 fi
+
+# Collect artifact
+mkdir -p /linux-4.4/artifact
+mv /*.deb /linux-4.4/artifact/.
 
 exit 0
