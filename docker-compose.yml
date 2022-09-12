@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  moxa-kernel-builder:
+    build: .
+    volumes:
+      - ./:/linux-4.4
+      - /dev:/dev
+    privileged: true
+    command: /linux-4.4/run.sh
