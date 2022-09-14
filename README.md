@@ -16,11 +16,11 @@ For more information of products, refer to [Moxa Products List](https://github.c
 
 ## Moxa Linux 4.4 Kernel Building Flow
 
-The following steps are the building flow of kernel for Moxa Products using LS102xA SoC.
+The following steps are building flow of kernel for Moxa Products using LS102xA SoC.
 
-### Install qemu
+### Prerequisites
 
-Install qemu related packages for the cross-build process:
+Install `qemu` related packages for the cross-build process:
 
 ```
 apt-get install qemu-user-static
@@ -31,79 +31,88 @@ apt-get install qemu-user-static
 Get the kernel sources by `git clone`:
 
 ```
-mkdir workspace
-cd workspace
 git clone https://github.com/Moxa-Linux/linux-4.4.git
 ```
 
-We provide two way for user to build kernel package.
+Switch to ls102xa branch.
 
-### Way One (*recommend*)
+```
+cd linux-4.4/
+git checkout 4.4.285-cip63-rt36/stretch-ls102xa/master
+```
 
-It is done by `docker-compose` command.
+### Build Kernel Package
+
+Two ways are provided to build kernel package.
+
+#### Way One: Build by `docker-compose` (*recommend*)
+
+Use `docker-compose` command.
 
 ```
 cd linux-4.4
 docker-compose up
 ```
 
-`.deb` files show in `workspace` directory when the building process is done.
+After the building process is completed, `.deb` files is shown in `linux-4.4/artifact/` directory.
 
-### Way Two
+#### Way Two: Build Manually
 
-* Prepare Building Environment
+[moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) is provided for building environment.
+Follow steps to build the docker environment and get the kernel package.
 
-  We provide [moxa-dockerfiles](https://github.com/Moxa-Linux/moxa-dockerfiles) for building environment.<br>
-  You can follow steps in the repository to prepare your environment.
+1. Build the docker image from Dockerfile
 
-* Create docker container
+   ```
+   docker build -t moxa-package-builder:1.0.0 .
+   ```
 
-  Kernel is compiled in the docker container.<br>
-  Here is the command to create the docker container that is needed by us.
+2. Create docker container
 
-```
-# sudo docker run -d -it -v ${PWD}:/workspace moxa-package-builder:1.0.0 bash
-d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
-```
+   By docker volumes, current directory is mapped to `/linux-4.4` in docker container.
 
-  After executing, Container ID (`d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6`) would show on terminal.
+   ```
+   docker run -d -it -v ${PWD}:/linux-4.4 moxa-package-builder:1.0.0 bash
+   ---
+   d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6
+   ```
 
-* Build kernel package
+   After executing the command, Container ID (`d103e6df5f719f9430056f9c23cf4e3e518d4a4f8b5b65e55889b90c258886c6`) is shown on terminal.
 
-  Kernel is packed in debian package.<br>
-  Here are commands to start docker container and build kernel package:
+3. Build kernel package
 
-```
-# docker start -ia <Container ID>
-# cd /workspace/linux-4.4
-# git checkout 4.4.285-cip63-rt36/stretch-ls102xa/master
-# apt-get build-dep -aarmhf .
-# dpkg-buildpackage -us -uc -b -aarmhf
-```
+   Execute commands to start and attach to docker container.
+   Then, pack the kernel into debian packages in docker container.
 
-`.deb` files show in `workspace` directory when the building process is done.
+   ```
+   docker start -ia <Container ID>
+   cd /linux-4.4
+   apt-get build-dep -aarmhf .
+   dpkg-buildpackage -us -uc -b -aarmhf
+   mkdir -p /linux-4.4/artifact
+   mv /*.deb /linux-4.4/artifact/.
+   ```
+
+   After the building process is completed, `.deb` files is shown in `linux-4.4/artifact/` 
+   directory.
 
 ### Upgrade kernel
 
-You can upgrade kernel through the kernel package.<br>
-Here are steps to upgrade `UC-8410A` series kernel.
+You can upgrade kernel through the kernel package.
+Follow the steps to upgrade `UC-8410A` series kernel.
 
-* Upload the kernel package
+* Upload the kernel package (by `scp`)
 
-  Kernel packages can be uploaded to device by the command:
-
-```
-# scp uc8410a-kernel*.deb uc8410a-modules*.deb moxa@192.168.3.127:/tmp
-```
+  ```
+  scp uc8410a-kernel*.deb uc8410a-modules*.deb moxa@192.168.3.127:/tmp
+  ```
 
 * Install the kernel packages
 
-  Kernel packages can be installed on device by the commands:
-
-```
-# cd /tmp
-# dpkg -i *.deb
-# sync
-```
-
-**NOTE: Remember to reboot the device after install the kernel package!**
+  ```
+  cd /tmp
+  dpkg -i *.deb
+  sync
+  ```
+  
+  **NOTE: Remember to reboot the device after install the kernel package!**
