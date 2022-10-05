@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2019 MOXA Inc. - https://www.moxa.com/
+ *
+ * Authors: Wes Huang (黃淵河) <wes.huang@moxa.com>
+ *          Ken CJ Chou <KenCJ.Chou@moxa.com>
+ */
+
+/dts-v1/;
+
+#include "am335x-moxa-uc-5100-common.dtsi"
+
+/ {
+	model = "Moxa UC-5102";
+	compatible = "moxa,uc-5102", "ti,am33xx";
+};
+
+&am33xx_pinmux {
+	pinctrl-names = "default";
+};

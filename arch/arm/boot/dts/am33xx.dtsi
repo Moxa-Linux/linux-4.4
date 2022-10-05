@@ -46,6 +46,8 @@
 			reg = <0>;
 
 			operating-points-v2 = <&cpu0_opp_table>;
+			ti,syscon-efuse = <&scm_conf 0x7fc 0x1fff 0>;
+			ti,syscon-rev = <&scm_conf 0x600>;
 
 			clocks = <&dpll_mpu_ck>;
 			clock-names = "cpu";
@@ -54,9 +56,8 @@
 		};
 	};
 
-	cpu0_opp_table: opp-table {
-		compatible = "operating-points-v2-ti-cpu";
-		syscon = <&scm_conf>;
+	cpu0_opp_table: opp_table0 {
+		compatible = "operating-points-v2";
 
 		/*
 		 * The three following nodes are marked with opp-suspend
@@ -249,7 +250,7 @@
 			reg =	<0x49000000 0x10000>;
 			reg-names = "edma3_cc";
 			interrupts = <12 13 14>;
-			interrupt-names = "edma3_ccint", "emda3_mperr",
+			interrupt-names = "edma3_ccint", "edma3_mperr",
 					  "edma3_ccerrint";
 			dma-requests = <64>;
 			#dma-cells = <2>;
@@ -609,6 +610,26 @@
 			ti,hwmods = "usb_otg_hs";
 			status = "disabled";
 
+			/*
+			 * The probe order matches the child ordering so the
+			 * dma-controller node must be the first one to prevent
+			 * spurious probe deferrals.
+			 */
+			cppi41dma: dma-controller@47402000 {
+				compatible = "ti,am3359-cppi41";
+				reg =  <0x47400000 0x1000
+					0x47402000 0x1000
+					0x47403000 0x1000
+					0x47404000 0x4000>;
+				reg-names = "glue", "controller", "scheduler", "queuemgr";
+				interrupts = <17>;
+				interrupt-names = "glue";
+				#dma-cells = <2>;
+				#dma-channels = <30>;
+				#dma-requests = <256>;
+				status = "disabled";
+			};
+
 			usb_ctrl_mod: control@44e10620 {
 				compatible = "ti,am335x-usb-ctrl-module";
 				reg = <0x44e10620 0x10
@@ -710,21 +731,6 @@
 					"tx1", "tx2", "tx3", "tx4", "tx5", "tx6", "tx7",
 					"tx8", "tx9", "tx10", "tx11", "tx12", "tx13",
 					"tx14", "tx15";
-			};
-
-			cppi41dma: dma-controller@47402000 {
-				compatible = "ti,am3359-cppi41";
-				reg =  <0x47400000 0x1000
-					0x47402000 0x1000
-					0x47403000 0x1000
-					0x47404000 0x4000>;
-				reg-names = "glue", "controller", "scheduler", "queuemgr";
-				interrupts = <17>;
-				interrupt-names = "glue";
-				#dma-cells = <2>;
-				#dma-channels = <30>;
-				#dma-requests = <256>;
-				status = "disabled";
 			};
 		};
 
@@ -921,10 +927,16 @@
 			ti,no-idle-on-init;
 			reg = <0x50000000 0x2000>;
 			interrupts = <100>;
+			dmas = <&edma 52 0>;
+			dma-names = "rxtx";
 			gpmc,num-cs = <7>;
 			gpmc,num-waitpins = <2>;
 			#address-cells = <2>;
 			#size-cells = <1>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			gpio-controller;
+			#gpio-cells = <2>;
 			status = "disabled";
 		};
 

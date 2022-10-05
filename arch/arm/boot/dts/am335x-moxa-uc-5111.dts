@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2019 MOXA Inc. - https://www.moxa.com/
+ *
+ * Authors: Wes Huang (黃淵河) <wes.huang@moxa.com>
+ *          Ken CJ Chou <KenCJ.Chou@moxa.com>
+ */
+
+/dts-v1/;
+
+#include "am335x-moxa-uc-5100-common.dtsi"
+
+/ {
+	model = "Moxa UC-5111";
+	compatible = "moxa,uc-5111", "ti,am33xx";
+};
+
+&am33xx_pinmux {
+	pinctrl-names = "default";
+
+	dcan0_default: dcan0_default_pins {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x920, PIN_INPUT_PULLUP | MUX_MODE1)	/* mii1_txd2.dcan0_rx */
+			AM33XX_IOPAD(0x91C, PIN_OUTPUT_PULLDOWN | MUX_MODE1) 	/* mii1_txd3.dcan0_tx */
+		>;
+	};
+
+	dcan1_default: dcan1_default_pins {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x984, PIN_INPUT_PULLUP | MUX_MODE2) 	/* uart1_txd.dcan1_rx */
+			AM33XX_IOPAD(0x980, PIN_OUTPUT_PULLDOWN | MUX_MODE2)	/* uart1_rxd.dcan1_tx */
+		>;
+	};
+};
+
+&dcan0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&dcan0_default>;
+	status = "okay";
+};
+
+&dcan1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&dcan1_default>;
+	status = "okay";
+};
