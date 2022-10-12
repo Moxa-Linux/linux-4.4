@@ -270,12 +270,12 @@ int usb_phy_gen_create_phy(struct device *dev, struct usb_phy_generic *nop,
 		}
 	}
 
-	nop->vcc = devm_regulator_get(dev, "vcc");
+	nop->vcc = devm_regulator_get_optional(dev, "vcc");
 	if (IS_ERR(nop->vcc)) {
 		dev_dbg(dev, "Error getting vcc regulator: %ld\n",
 					PTR_ERR(nop->vcc));
-		if (needs_vcc)
-			return -EPROBE_DEFER;
+		if (needs_vcc || PTR_ERR(nop->vcc) == -EPROBE_DEFER)
+			return PTR_ERR(nop->vcc);
 	}
 
 	nop->dev		= dev;

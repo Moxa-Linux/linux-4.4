@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+#!/usr/bin/make -f
+
+include configs/imx7d.mk
+include configs/build.mk

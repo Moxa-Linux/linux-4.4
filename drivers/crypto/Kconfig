@@ -159,7 +159,7 @@ config CRYPTO_GHASH_S390
 
 	  It is available as of z196.
 
-config CONFIG_CRYPTO_DEV_LINUX
+config CRYPTO_DEV_LINUX
 	tristate "Cryptodev-linux"
 	help
 	  Cryptodev-linux is a Linux-kernel device that allows user-space

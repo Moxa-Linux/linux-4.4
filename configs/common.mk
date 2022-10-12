@@ -20,7 +20,7 @@ KERNEL_NAME := 4.4.0-cip-rt-moxa-$(SOC)
 
 OUTPUT_DIR := output
 MODULES_OUTPUT_DIR := $(OUTPUT_DIR)/modules
-HEADERS_OUTPUT_DIR := $(OUTPUT_DIR)/headers/linux-headers-$(KERNEL_NAME)
+HEADERS_OUTPUT_DIR := $(OUTPUT_DIR)/headers/usr/src/linux-headers-$(KERNEL_NAME)
 ITBS_OUTPUT_DIR    := $(OUTPUT_DIR)/itbs
 
 ifneq (,$(DEB_HOST_GNU_TYPE))
@@ -51,7 +51,6 @@ SCRIPTS_FILES_PL := \
 	checkstack.pl \
 	checkversion.pl \
 	namespace.pl \
-	patch-kernel \
 	recordmcount.pl
 
 SCRIPTS_FILES_SH := \
@@ -60,10 +59,10 @@ SCRIPTS_FILES_SH := \
 	gcc-version.sh \
 	gcc-x86_32-has-stack-protector.sh \
 	gcc-x86_64-has-stack-protector.sh \
+	gen_initramfs_list.sh \
 	headers_install.sh \
 	ld-version.sh \
-	mkuboot.sh \
-        gen_initramfs_list.sh
+	mkuboot.sh
 
 SCRIPTS_FILES := \
 	$(SCRIPTS_FILES_MAKEFILE) \
@@ -76,6 +75,7 @@ SCRIPTS_FILES := \
 	mksysmap \
 	mkversion \
 	module-common.lds \
+	patch-kernel \
 	setlocalversion \
 	ver_linux
 

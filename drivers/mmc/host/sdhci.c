@@ -2094,9 +2094,9 @@ static int sdhci_execute_tuning(struct mmc_host *mmc, u32 opcode)
 
 		ctrl = sdhci_readw(host, SDHCI_HOST_CONTROL2);
 
-		/* eMMC spec does not require a delay between tuning cycles */
-		if (opcode == MMC_SEND_TUNING_BLOCK)
-			mdelay(1);
+		/* Spec does not require a delay between tuning cycles */
+		if (host->tuning_delay > 0)
+			mdelay(host->tuning_delay);
 	} while (ctrl & SDHCI_CTRL_EXEC_TUNING);
 
 	/*
@@ -2127,6 +2127,9 @@ out:
 	}
 
 	host->mmc->retune_period = err ? 0 : tuning_count;
+
+	if (host->tuning_delay < 0)
+		host->tuning_delay = opcode == MMC_SEND_TUNING_BLOCK;
 
 	sdhci_writel(host, host->ier, SDHCI_INT_ENABLE);
 	sdhci_writel(host, host->ier, SDHCI_SIGNAL_ENABLE);
@@ -2926,6 +2929,8 @@ struct sdhci_host *sdhci_alloc_host(struct device *dev,
 	host->mmc = mmc;
 	host->mmc_host_ops = sdhci_ops;
 	mmc->ops = &host->mmc_host_ops;
+
+	host->tuning_delay = -1;
 
 	return host;
 }
