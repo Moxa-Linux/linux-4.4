@@ -16,7 +16,6 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
-#include "../../mx_ver.h"
 
 #include <linux/version.h>
 #define	VERSION_CODE(ver,rel,seq)	((ver << 16) | (rel << 8) | seq)
@@ -63,7 +62,7 @@
 	#include <linux/pci.h>
 #endif
 
-#define	MXSER_VERSION	MX_SER_VERSION	
+#define	MXSER_VERSION	"4.1"
 #define	MXSERMAJOR	 30
 #define	MXSERCUMAJOR	 35
 
