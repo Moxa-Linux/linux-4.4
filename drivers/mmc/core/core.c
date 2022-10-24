@@ -48,6 +48,8 @@
 
 /* If the device is not responding */
 #define MMC_CORE_TIMEOUT_MS	(10 * 60 * 1000) /* 10 minute timeout */
+#define MMC_CACHE_FLUSH_TIMEOUT_MS     (30 * 1000) /* 30s */
+#define MMC_BKOPS_TIMEOUT_MS            (120 * 1000) /* 120s */
 
 /*
  * Background operations can take a long time, depending on the housekeeping
@@ -333,7 +335,7 @@ void mmc_start_bkops(struct mmc_card *card, bool from_exception)
 
 	mmc_claim_host(card->host);
 	if (card->ext_csd.raw_bkops_status >= EXT_CSD_BKOPS_LEVEL_2) {
-		timeout = MMC_BKOPS_MAX_TIMEOUT;
+		timeout = MMC_BKOPS_TIMEOUT_MS;
 		use_busy_signal = true;
 	} else {
 		timeout = 0;
@@ -2756,7 +2758,7 @@ int mmc_flush_cache(struct mmc_card *card)
 			(card->ext_csd.cache_size > 0) &&
 			(card->ext_csd.cache_ctrl & 1)) {
 		err = mmc_switch(card, EXT_CSD_CMD_SET_NORMAL,
-				EXT_CSD_FLUSH_CACHE, 1, 0);
+				EXT_CSD_FLUSH_CACHE, 1, MMC_CACHE_FLUSH_TIMEOUT_MS);
 		if (err)
 			pr_err("%s: cache flush error %d\n",
 					mmc_hostname(card->host), err);

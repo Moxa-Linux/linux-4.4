@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2022 MOXA Inc. - https://www.moxa.com/
+ *
+ * Authors: Ken CJ Chou <KenCJ.Chou@moxa.com>
+ *          TungYu TY Yang <TungyuTY.Yang@moxa.com>
+ */
+
+#include "am335x-moxa-uc-2101.dts"
+
+&cpsw_emac0 {
+	phy_id = <&davinci_mdio>, <0x0>;
+};

@@ -32,6 +32,17 @@ config MMC_BLOCK_MINORS
 
 	  If unsure, say 8 here.
 
+config MMC_BLOCK_NAME_DETECT_INDEX
+	bool "Use Name detected indexes"
+	depends on MMC_BLOCK
+	default n
+	help
+	  Say Y here to use Name detected indexes instead of fixed
+	  mmcblk device indexes. If everyone who wants to use fixed
+	  mmcblk device indexes should say N here.
+
+	  If unsure, say N here.
+
 config MMC_BLOCK_BOUNCE
 	bool "Use bounce buffer for simple hosts"
 	depends on MMC_BLOCK
