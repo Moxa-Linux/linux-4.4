@@ -1,0 +1,15 @@
+am335x-linux-4.4 (4.4.302-cip70-rt40-moxa3+deb9) stretch; urgency=medium
+
+  [Changed]
+  * Pickup the commits modified by MOXA from `4.4.285-cip63-rt36/master` and skip reverted commits.
+  * ls102xa: remove the conflict commit about MU-860 driver and update new MSB Linux kernel 4.x.x driver.
+  * imx7d: set MMC_CACHE_FLUSH_TIMEOUT_MS as default timeout in mmc_switch().
+  * imx7d: mmc: sdhci-of-esdhc: fixup PRESENT_STATE read.
+
+  [Fixed]
+  * mmc: sdio_cis: backport definition of CISTPL_SDIO_STD(0x91).
+  * imx7d: build MOXA UPORT 11x0 Serial Driver.
+  * rtc: ds1374: wdt: Fix stop/start ioctl always returning -EINVAL.
+  * ls102xa: backport CPU frequency scaling driver for Freescale QorIQ SoC for missing CPU frequency in `lscpu`.
+
+ -- TungYu TY Yang <TungyuTY.Yang@moxa.com>  Wed, 02 Nov 2022 13:42:59 +0800
