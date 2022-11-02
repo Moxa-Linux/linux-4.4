@@ -1,0 +1,78 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: linux-4.4
+Source: https://github.com/Moxa-Linux/linux-4.4/tree/4.4.285-cip63-rt36/stretch-am335x/master
+
+Files: *
+Copyright: 1991-2012 Linus Torvalds and many others
+License: GPL-2
+
+Files:
+ arch/arm/boot/dts/a335x-moxa-*
+ arch/arm/configs/uc2100_defconfig
+ arch/arm/configs/uc2100-rt_defconfig
+ arch/arm/configs/uc3100_defconfig
+ arch/arm/configs/uc3100-rt_defconfig
+ arch/arm/configs/uc5100_defconfig
+ arch/arm/configs/uc8100_defconfig
+ arch/arm/configs/uc8100a-me_defconfig
+ arch/arm/configs/uc8100me_defconfig
+ its/*
+Copyright: copyright (c) 2022 Moxa Inc. All rights reserved.
+License: MOXA SOFTWARE NOTICE
+
+Files: debian/*
+Copyright: copyright (c) 2022 Moxa Inc. All rights reserved.
+License: MOXA SOFTWARE NOTICE
+
+
+License: MOXA SOFTWARE NOTICE
+copyright (c) 2022 Moxa Inc. All rights reserved.
+
+This software ("Software") is copyrighted and owned by Moxa Inc., or any of its
+affiliates (collectively referred to as "Moxa").
+
+Unless otherwise provided herein or agreed by Moxa, you shall not (a) modify,
+distribute, alter, tamper with, repair, or otherwise create derivative works of
+the Software, (b) reverse engineer, disassemble, or decompile the Software or
+apply any other process or procedure to derive the source code of the Software,
+or (c) resell, sublicense, assign, or otherwise transfer the Software or related
+documentation. Some software (including machine images), data, text, audio, 
+video or images may be provided to you under a separate license ("Third-Party
+Content"), such as the Apache License, Version 2.0, or other open source 
+license. In the event of a conflict between this MOXA SOFTWARE NOTICE and any
+separate license, the separate license will prevail with respect to such 
+Third-Party Content that is the subject of such separate license.
+
+LIMITED WARRANTY. THE SOFTWARE IS PROVIDED "AS IS." EXCEPT TO THE EXTENT 
+PROHIBITED BY LAW, OR TO THE EXTENT ANY STATUTORY RIGHTS APPLY THAT CANNOT BE
+EXCLUDED, LIMITED OR WAIVED. MOXA (A) MAKES NO REPRESENTATIONS OR WARRANTIES OF
+ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY OR OTHERWISE REGARDING THE SOFTWARE,
+AND (B) DISCLAIMS ALL WARRANTIES, INCLUDING ANY IMPLIED OR EXPRESS WARRANTIES 
+(I) OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A PARTICULAR PURPOSE,
+NON-INFRINGEMENT, OR QUIET ENJOYMENT, (II) ARISING OUT OF ANY COURSE OF DEALING 
+OR USAGE OF TRADE, AND (III) THAT THE SOFTWARE WILL BE UNINTERRUPTED, ERROR FREE
+OR FREE OF HARMFUL COMPONENTS.
+
+LIMITATION OF LIABILITY. MOXA WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES (INCLUDING DAMAGES FOR 
+LOSS OF PROFITS, REVENUES, CUSTOMERS, OPPORTUNITIES, GOODWILL, USE, OR DATA), EVEN
+IF A PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE LIMITATIONS IN
+THIS SECTION APPLY ONLY TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
+
+License: GPL-2
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License version 2 as
+ published by the Free Software Foundation.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this package; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the complete text of the GNU General Public License version
+ 2 can be found in `/usr/share/common-licenses/GPL-2'.
+ 
