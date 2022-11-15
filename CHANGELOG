@@ -1,0 +1,19 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [4.4.302-cip70-rt40-moxa2] - 2022-11-09
+### Fixed
+* ls102xa: backport CPU frequency scaling driver for Freescale QorIQ SoC for missing CPU frequency in `lscpu`.
+* rtc: ds1374: wdt: Fix stop/start ioctl always returning -EINVAL.
+
+## [4.4.302-cip70-rt40-moxa1] - 2022-10-14
+### Changed
+* Pickup the commits modified by MOXA from `4.4.285-cip63-rt36/master` and skip reverted commits.
+* ls102xa: remove the conflict commit about MU-860 driver and update new MSB Linux kernel 4.x.x driver.
+* imx7d: set MMC_CACHE_FLUSH_TIMEOUT_MS as default timeout in mmc_switch().
+* imx7d: mmc: sdhci-of-esdhc: fixup PRESENT_STATE read.
