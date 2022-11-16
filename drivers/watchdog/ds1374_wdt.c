@@ -238,14 +238,15 @@ static long ds1374_wdt_ioctl(struct file *file, unsigned int cmd,
 		if (options & WDIOS_DISABLECARD & !nowayout ) {
 			pr_info("ds1374_wdt: disable watchdog\n");
 			ds1374_wdt_disable();
+			return 0;
 		}
 
 		if (options & WDIOS_ENABLECARD) {
 			pr_info("ds1374_wdt: enable watchdog\n");
 			ds1374_wdt_settimeout(timer_margin);
 			ds1374_wdt_ping();
+			return 0;
 		}
-
 		return -EINVAL;
 	}
 	return -ENOTTY;
