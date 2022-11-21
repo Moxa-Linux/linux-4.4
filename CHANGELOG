@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.302-cip70-rt40-moxa3] - 2022-11-21
+### Fixed
+* mmc: sdio_cis: backport definition of CISTPL_SDIO_STD(0x91).
+* imx7d: build MOXA UPORT 11x0 Serial Driver.
+
 ## [4.4.302-cip70-rt40-moxa2] - 2022-11-09
 ### Fixed
 * ls102xa: backport CPU frequency scaling driver for Freescale QorIQ SoC for missing CPU frequency in `lscpu`.
