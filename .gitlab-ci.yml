@@ -1,61 +1,9 @@
 include:
-  - project: 'moxa/ibg/software/platform/linux/packages/pipeline-template'
+  - project: "moxa/ibg/software/platform/linux/packages/pipeline-template"
     ref: master
-    file:
-      - 'mil1/stretch-general.yml'
+    file: "mil1/stretch-standard.yml"
 
-workflow:
-  rules:
-    - if: '$CI_COMMIT_BRANCH'
-    - if: '$CI_COMMIT_TAG'
-      when: never
-
-variables:
-  RELEASE: standard
-
-stages:
-  - build
-
-.build_template:
-  stage: build
-  extends: .build_deb
-  before_script:
-   - dpkg --add-architecture armhf
-   - dpkg --add-architecture amd64
-   - curl -fsSL $MOXA_INTERNAL_APT/ibg-linux-apt.gpg | apt-key add -
-   - echo "$DEB_MIRROR_DEBIAN_SNAPSHOT" >> /etc/apt/sources.list.d/ibg-linux-apt.list
-   - echo "$DEB_MIRROR_MOXA_STANDARD" >> /etc/apt/sources.list.d/ibg-linux-apt.list
-   - apt-get update -y
-   - apt-get install -y debhelper device-tree-compiler u-boot-tools build-essential crossbuild-essential-armhf bison flex libssl-dev cpio libc6-dev:armhf dh-exec kmod
-  after_script: []
-  artifacts:
-    name: "${CI_PROJECT_NAME}"
-    paths:
-      - 'arch/arm/boot/uImage'
-      - 'arch/arm/boot/zImage'
-      - 'arch/arm/boot/dts/*.dtb'
-      - 'output/*'
-
-build:am335x:
-  extends: .build_template
-  rules:
-    - exists:
-      - "arch/arm/configs/am335x_defconfig"
+build_deb:
   script:
-    - make -f Makefile.am335x
-
-build:imx7d:
-  extends: .build_template
-  rules:
-    - exists:
-      - "arch/arm/configs/imx7d_defconfig"
-  script:
-    - make -f Makefile.imx7d
-
-build:ls102xa:
-  extends: .build_template
-  rules:
-    - exists:
-      - "arch/arm/configs/ls102xa_defconfig"
-  script:
-    - make -f Makefile.ls102xa
+    - dpkg-buildpackage -us -uc -aarmhf
+    - dpkg-buildpackage -us -uc -b

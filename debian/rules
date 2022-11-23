@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+include /usr/share/dpkg/architecture.mk
+
+override_dh_auto_clean:
+	@$(MAKE) -f Makefile.ls102xa clean
+
+override_dh_auto_build:
+ifeq ($(DEB_HOST_ARCH), armhf)
+	@$(MAKE) -f Makefile.ls102xa
+else
+	@$(MAKE) -f Makefile.ls102xa build_kbuild
+endif
+
+override_dh_shlibdeps:
+ifeq ($(DEB_HOST_ARCH), armhf)
+	@dh_shlibdeps -l/usr/arm-linux-gnueabihf/lib --
+endif
+
+override_dh_auto_install:
+	@$(info Skip dh_auto_install)
+
+override_dh_strip:
+	@dh_strip --no-automatic-dbgsym
+
+#
+# Call debhelper for clean, build, binary
+#
+%:
+	dh $@
