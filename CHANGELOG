@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.302-cip70-rt40-moxa4] - 2022-11-25
+### Fixed
+* ARM: dts: ls1021a: fix uc-8410a PHY LED no blinking in link status.
+* ARM: dts: ls1021a: fix da-662c PHY LED no blinking in link status.
+
 ## [4.4.302-cip70-rt40-moxa3] - 2022-11-21
 ### Fixed
 * mmc: sdio_cis: backport definition of CISTPL_SDIO_STD(0x91).
