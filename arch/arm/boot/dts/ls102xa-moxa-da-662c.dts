@@ -279,7 +279,7 @@
 		marvell,reg-init =
 			/* marvell,reg-init = <reg-page reg mask value> */
 			<3 0x11 0 0x4415>, /* Reg 3,17 */
-			<3 0x10 0 0x77>; /* Reg 3,16 */
+			<3 0x10 0 0x771>; /* Reg 3,16 */
 	};
 
 	rgmii_phy1: ethernet-phy@1 {
@@ -288,7 +288,7 @@
 		marvell,reg-init =
 			/* marvell,reg-init = <reg-page reg mask value> */
 			<3 0x11 0 0x4415>, /* Reg 3,17 */
-			<3 0x10 0 0x77>; /* Reg 3,16 */
+			<3 0x10 0 0x771>; /* Reg 3,16 */
 	};
 
 	rgmii_phy2: ethernet-phy@2 {
@@ -297,7 +297,7 @@
 		marvell,reg-init =
 			/* marvell,reg-init = <reg-page reg mask value> */
 			<3 0x11 0 0x4415>, /* Reg 3,17 */
-			<3 0x10 0 0x77>; /* Reg 3,16 / LED[0]:orange LED[1]:green, 4bit per LED */
+			<3 0x10 0 0x771>; /* Reg 3,16 / LED[0]:orange LED[1]:green, 4bit per LED */
 	};
 	
 	tbi1: tbi-phy@1f {
