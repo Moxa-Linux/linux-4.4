@@ -1,3 +1,11 @@
+ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa4+de9) stretch; urgency=medium
+
+  [Changed]
+  * ARM: dts: ls1021a: fix uc-8410a PHY LED no blinking in link status.
+  * ARM: dts: ls1021a: fix da-662c PHY LED no blinking in link status.
+
+ -- Sin-Ru Lu <ChrisSR_Lu@moxa.com>  Tue, 29 Nov 2022 13:08:22 +0800
+
 ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa3+deb9) stretch; urgency=medium
 
   [Changed]
