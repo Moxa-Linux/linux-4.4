@@ -1,4 +1,4 @@
-ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa4+de9) stretch; urgency=medium
+ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa4+deb9) stretch; urgency=medium
 
   [Changed]
   * ARM: dts: ls1021a: fix uc-8410a PHY LED no blinking in link status.
