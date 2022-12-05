@@ -1,6 +1,13 @@
-ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa4+deb9) stretch; urgency=medium
+ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa5+deb9) stretch; urgency=medium
 
   [Changed]
+  * ARM: ls102xa_defconfig: set moxa smart IO driver as module.
+
+ -- Sin-Ru Lu <ChrisSR_Lu@moxa.com>  Mon, 05 Dec 2022 10:36:59 +0800
+
+ls102xa-linux-4.4 (4.4.302-cip70-rt40-moxa4+deb9) stretch; urgency=medium
+
+  [Fixed]
   * ARM: dts: ls1021a: fix uc-8410a PHY LED no blinking in link status.
   * ARM: dts: ls1021a: fix da-662c PHY LED no blinking in link status.
 
