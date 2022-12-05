@@ -1,3 +1,13 @@
+am335x-linux-4.4 (4.4.302-cip70-rt40-moxa5+deb9) stretch; urgency=medium
+
+  [Changed]
+  * ARM: ls102xa_defconfig: set moxa smart IO driver as module.
+
+  [Fixed]
+  * ARM: dts: ls1021a: fix uc-8410a and da-662c PHY LED no blinking in link status.
+
+ -- TungYu TY Yang <TungyuTY.Yang@moxa.com>  Mon, 05 Dec 2022 10:17:52 +0800
+
 am335x-linux-4.4 (4.4.302-cip70-rt40-moxa3+deb9) stretch; urgency=medium
 
   [Changed]
