@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.302-cip70-rt40-moxa5] - 2022-11-30
+### Changed
+* ARM: ls102xa_defconfig: set moxa smart IO driver as module.
+
 ## [4.4.302-cip70-rt40-moxa4] - 2022-11-25
 ### Fixed
 * ARM: dts: ls1021a: fix uc-8410a PHY LED no blinking in link status.
